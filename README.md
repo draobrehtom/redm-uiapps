@@ -70,3 +70,28 @@ enum eUIScriptEventType : Hash
 	UISCRIPTEVENTTYPE_PINNED_ITEM_VALIDATION = 0x7D26E5FF
 };
 ```
+Example usage ([reference](https://github.com/aaron1a12/wild/blob/9235aaa39696691ff26977ff1d2c18fe67971ef5/wild-core/client/cl_weaponWheel.lua#L28)):
+```lua
+local msg = DataView.ArrayBuffer(8 * 4) -- https://github.com/meta-hub/redm-events/blob/main/dataview.lua
+msg:SetInt32(0, 0)
+msg:SetInt32(8, 0)
+msg:SetInt32(16, 0)
+msg:SetInt32(24, 0)
+
+if EventsUiGetMessage(`hud_quick_select`, msg:Buffer()) ~= 0 then                    
+    if msg:GetInt32(0) == `ITEM_FOCUSED` then
+
+	if msg:GetInt32(8) == 1 and msg:GetInt32(16) == 813560150 then
+	    currentWheel = 0 -- Weapon wheel
+	end
+
+	if msg:GetInt32(8) == 2 and msg:GetInt32(16) == -414255251 then
+	    currentWheel = 1 -- Item wheel
+	end
+
+	if msg:GetInt32(8) == 3 and msg:GetInt32(16) == -1472057397 then
+	    currentWheel = 2 -- Horse wheel
+	end
+    end
+end 
+```
