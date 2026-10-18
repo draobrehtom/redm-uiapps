@@ -390,6 +390,14 @@ def infer(node):
     return 'UIPanel'
 
 
+def conv_default(cv, default):
+    # What a converter shows before anything is set. A flag (keys 0 / 1, false / true): its off state.
+    # A mode numbered from 1 (RadarMode 1..3): mode 1, the regular one, which the converter's Default does not cover.
+    if '0' in cv or 'false' in cv or 'False' in cv:
+        return default or cv.get('0') or cv.get('false') or cv.get('False')
+    return cv.get('1') or default or next((v for k, v in sorted(cv.items())), None)
+
+
 def elem(node, scene, depth=0, prefix=None):
     real = node.get('type') if node.tag == 'Item' and (node.get('type') or '').startswith('UI') else None
     d = {'n': text(node, 'Name'), 't': real or (node.tag if node.tag != 'Item' else infer(node))}
@@ -411,7 +419,26 @@ def elem(node, scene, depth=0, prefix=None):
             prefix = prefix + '.' + p0
     if prefix:
         d['pre'] = prefix
-    d.update(lp(node))
+    own = lp(node)
+    d.update(own)
+    # a Style chosen by a converter (RadarMode 1 -> ACTUAL_RADAR_SIZE_DEFAULT): its default, else the first non-zero key
+    for mb in node.findall('MemberBindings/Item'):
+        if text(mb, 'MemberName') != 'Style' or mb.find('Converter') is None:
+            continue
+        cv = {it.get('key'): (it.text or '').strip() for it in mb.findall('Converter/Dictionary/Item') if (it.text or '').strip()}
+        chosen = conv_default(cv, text(mb.find('Converter'), 'Default')) or next(iter(cv.values()), None)
+        if chosen:
+            d['styleBound'] = chosen
+            for k, v in (STYLES.get(chosen) or {}).items():
+                if k in ('ho', 'verticalAlignment', 'widthContentMode', 'heightContentMode', 'width', 'height', 'leftMargin', 'rightMargin',
+                         'topMargin', 'bottomMargin', 'rows', 'columns', 'orientation', 'Stretch', 'row', 'column', 'rowSpan', 'columnSpan') and k not in own:
+                    d[k] = v
+            if not text(node, 'Style'):
+                d['Style'] = chosen
+        break
+    att = text(node, 'LayoutAttachmentOverride')
+    if att:
+        d['attach'] = att
     st = STYLES.get(text(node, 'Style') or '')
     if st:
         for k in ('ho', 'verticalAlignment', 'widthContentMode', 'heightContentMode', 'width', 'height', 'leftMargin', 'rightMargin',
@@ -433,7 +460,18 @@ def elem(node, scene, depth=0, prefix=None):
         s = mb.find('Setup')
         if s is not None:
             bp = pathof(s.find('Path')); pt = (text(s, 'PathType') or '').replace('PATH_', '')
-            binds.append({'m': text(mb, 'MemberName'), 'p': bp, 'pt': pt})
+            bd = {'m': text(mb, 'MemberName'), 'p': bp, 'pt': pt}
+            # a converter's default, else its first non-zero key: what the UI shows before script or code sets the value
+            cvn = mb.find('Converter')
+            if cvn is not None:
+                cv = {it.get('key'): (it.text or '').strip() for it in cvn.findall('Dictionary/Item') if (it.text or '').strip()}
+                dv = conv_default(cv, text(cvn, 'Default'))
+                if dv:
+                    bd['d'] = dv
+                if bd['m'] == 'Texture' and text(node, 'TextureDictionary'):
+                    for v in set(cv.values()) | ({dv} if dv else set()):
+                        cat['textures'].setdefault(text(node, 'TextureDictionary'), set()).add(v)
+            binds.append(bd)
             if pt in ('LOCAL', 'RELATIVE') and prefix and bp and not bp.startswith('^'):
                 DERIVED[prefix + '.' + bp].add((scene, text(mb, 'MemberName')))
     bs = node.find('BehaviorSet/Behaviors')
@@ -554,6 +592,41 @@ for name, root in files.items():
             if sid and base is not None:
                 STYLES.setdefault(sid, style_props(base.find('Properties') or []))
 cat['styles'] = STYLES
+
+# ---------- safe frames and layout blueprints (attachment points such as safeframe_hud.hud_root.GRD_CornerItems) ----------
+SAFE = {}
+sfc = files.get('safeframe_configurations')
+if sfc is not None:
+    prof = next((p for p in sfc.iter('Item') if p.get('key') == 'DISPLAY_LAYOUT_DEFAULT'), None)
+    raw = {}
+    for it in (prof.find('Configurations') if prof is not None else []) or []:
+        m = re.search(r"@key=([A-Za-z0-9_]+)", it.get('parentPath') or '')
+        raw[it.get('key')] = {'parent': m.group(1) if m else None,
+                              'x': num(it.find('SafeframeX').get('value')) if it.find('SafeframeX') is not None else None,
+                              'y': num(it.find('SafeframeY').get('value')) if it.find('SafeframeY') is not None else None}
+    def sf(k, depth=0):
+        r = raw.get(k) or {}
+        px, py = sf(r['parent'], depth + 1) if r.get('parent') and depth < 8 else (1.0, 1.0)
+        return (r.get('x') if r.get('x') is not None else px, r.get('y') if r.get('y') is not None else py)
+    SAFE = {k: list(sf(k)) for k in raw}
+cat['safeframes'] = SAFE
+
+NODE_TYPES = {'PanelNode': 'UIPanel', 'GridNode': 'UIGrid', 'StackPanelNode': 'UIStackPanel', 'ViewboxNode': 'UIViewbox', 'CanvasNode': 'UICanvas'}
+
+
+def blueprint(node):
+    d = {'n': text(node, 'name'), 't': NODE_TYPES.get(text(node, 'typeName') or '', 'UIPanel')}
+    d.update(lp(node))
+    ch = node.find('children')
+    if ch is not None:
+        d['c'] = [blueprint(i) for i in ch]
+    return d
+
+
+cat['blueprints'] = {}
+for name, root in files.items():
+    if root.tag == 'rage__LayoutBlueprint':
+        cat['blueprints'][text(root, 'rootNodePath') or name] = [blueprint(i) for i in root.find('nodeBlueprints') or []]
 
 cat['ui'] = {}
 for name, root in files.items():
