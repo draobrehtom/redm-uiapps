@@ -569,7 +569,11 @@ def style_props(props):
                 pp = ET.SubElement(wrap, 'params')
                 for ch in si:
                     pp.append(ch)
+        # a FilterSet (drop shadow) has an Alpha and a ShadowColor of its own: not the element's
+        skip = {id(x) for f in it.iter('FilterSet') for x in f.iter()}
         for e in it.iter():
+            if id(e) in skip:
+                continue
             if e.tag in VISUAL and e.text and e.text.strip():
                 out.setdefault(e.tag, e.text.strip())
             if e.tag in VISUALV and e.get('value') is not None:
