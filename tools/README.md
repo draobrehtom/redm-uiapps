@@ -6,6 +6,7 @@ Scripts that turn the game's UI files into the reference pages in [`docs/`](../d
 |---|---|---|
 | `extract.py` | a folder of UI files converted to XML | `catalog.json`: apps, flows, entries, events, templates, DataBinding paths, HUD contexts, element trees of every screen |
 | `gen_docs.py` | `catalog.json` | `docs/apps.md`, `flows.md`, `events.md`, `templates.md`, `hud.md`, `datastore.md` |
+| `labels.py` | the English language packs as XML, the UI XML, `catalog.json` | `catalog.json` with `labels`: the text of every label key the UI files use |
 
 Both use only the Python standard library.
 
@@ -44,6 +45,15 @@ python -I tools/gen_docs.py catalog.json docs
 ```
  "files": 2236, "flows": 172, "apps": 37, "channels": 35, "eventParams": 277,
  "templates": 727, "datastorePaths": 2826, "hudSlots": 66, "hudContexts": 96, "ui": 1403
+```
+
+## Label text
+
+Strings are in `.yldb` language packs: `data_0.rpf\data\langmerican_rel.rpf` and its update in `update_3.rpf`.
+Convert them with `codexcli xmlmany` into `lang/L0` (base) and `lang/L1` (update), then:
+
+```bash
+python -I tools/labels.py lang path/to/ui-xml catalog.json
 ```
 
 ## Textures for previews
