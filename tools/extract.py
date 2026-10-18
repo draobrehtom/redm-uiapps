@@ -148,7 +148,13 @@ for name, root in files.items():
             t = it.find('Template')
             if t is not None and text(t, 'Id'):
                 keys = [k.get('key') for k in (t.find('PropertyKeys') or [])]
-                cat['templates'].append({'alias': text(t, 'Id'), 'widget': n, 'flow': fid, 'keys': keys,
+                # where each property key lands in the widget: an element (local path) and its property
+                targets = {}
+                for k in (t.find('PropertyKeys') or []):
+                    tp = text(k.find('Target'), 'Path') if k.find('Target') is not None else None
+                    if tp:
+                        targets[k.get('key')] = {'path': tp, 'prop': text(k, 'Property')}
+                cat['templates'].append({'alias': text(t, 'Id'), 'widget': n, 'flow': fid, 'keys': keys, 'targets': targets,
                                          'hash': hashinfo(text(t, 'Id'))})
                 fl['templates'].append(text(t, 'Id'))
             elif n:
@@ -465,6 +471,17 @@ def elem(node, scene, depth=0, prefix=None):
                 num(i.find('PosY').get('value')) if i.find('PosY') is not None else None] for i in tpl if text(i, 'Type')]
         if any(x is not None or y is not None for x, y in pos):
             d['instPos'] = pos
+        # bindings an instance passes to its template's property keys
+        ib = []
+        for i in tpl:
+            if not text(i, 'Type'):
+                continue
+            ib.append([{'k': text(b, 'PropertyKey'), 'm': text(b, 'MemberName'),
+                        'p': strip_root(pathof(b.find('Setup/Path'))) if b.find('Setup/Path') is not None else None,
+                        'pt': (text(b.find('Setup'), 'PathType') or '').replace('PATH_', '') if b.find('Setup') is not None else ''}
+                       for b in i.findall('Bindings/Item')])
+        if any(ib):
+            d['instBind'] = ib
     kids = []
     ch = node.find('Children')
     if ch is not None and depth < 40:
