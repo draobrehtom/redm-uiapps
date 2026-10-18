@@ -20,6 +20,11 @@ APP_FLOW = {
     'stats_menu': 'stats_launcher_flow', 'trader': 'trader_launcher_flow', 'translation_overlay': 'translate_launcher_flow',
     'weapon_locker': 'weapon_locker_launcher_flow', 'leaderboards': 'leaderboard_and_post_match_launcher',
 }
+# apps whose launcher is found by flow block id rather than file name
+APP_FLOW_ID = {
+    'landing_page': 'landing_flow', 'store': 'store_launcher_flow', 'shop_menu': 'shop_launcher_flow',
+    'saveload_menu': 'savegame_launcher_flow', 'virtual_keyboard': 'on_screen_keyboard', 'lobbies_menu': 'pm_flow_lobby_launcher',
+}
 
 
 def joaat(s):
@@ -73,7 +78,7 @@ def reach(fid):
 # ---------- apps ----------
 lines = []
 for app in sorted(c['apps']):
-    f = by_file.get(APP_FLOW.get(app, '')) or c['flows'].get(app)
+    f = by_file.get(APP_FLOW.get(app, '')) or c['flows'].get(app) or c['flows'].get(APP_FLOW_ID.get(app, ''))
     lines.append(f'## `{app}`\n')
     lines.append(f'- Hash: {hs(app)}')
     lines.append(f"- Launcher flow: {'`' + f['id'] + '` (`' + f['file'] + '`)' if f else 'started by code, no flow file'}")

@@ -105,8 +105,8 @@ python -I tools/gen_docs.py catalog.json docs/
 
 ## What is not known yet
 
-- The app id → launcher flow pairing is in code. `gen_docs.py` pairs them by name; `landing_page`, `lobbies_menu`,
-  `policies_menu`, `rockstar_editor`, `saveload_menu`, `shop_menu`, `store` and `virtual_keyboard` are not paired.
+- The app id → launcher flow pairing is in code. `gen_docs.py` pairs them by name (file name or flow block id);
+  `policies_menu` and `rockstar_editor` are not paired.
 - Whether RedM loads replaced or new files under `data/ui` from a resource has not been tested. If it does, new
   screens and flows could be shipped: codexcli builds `.ymt` from XML (`fromxml`).
 - Text bound with `Text` takes a label hash; the strings themselves are in the game's `.gxt2` files, which are not
