@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rage__fwuiFlowBlock>
+ <ID>luman_uiapp_flow</ID>
+ <EntryPoints>
+  <Item>
+   <ID>default_entry_point</ID>
+   <Target>luman_uiapp_main_scene</Target>
+  </Item>
+ </EntryPoints>
+ <ExitPoints>
+  <Item>
+   <ID>exit_to_game</ID>
+  </Item>
+ </ExitPoints>
+ <FlowRoot>
+  <ID>resource_load</ID>
+  <State type="rage__StateResourceLoader">
+   <Resources>
+    <Item type="rage__fwuiTextureDictionaryDependencyResource">
+     <Name>generic_textures</Name>
+    </Item>
+    <Item type="rage__fwuiTextureDictionaryDependencyResource">
+     <Name>menu_textures</Name>
+    </Item>
+    <Item type="UIObjectSceneStreamingDependencyResource">
+     <Name>luman_uiapp_scene</Name>
+    </Item>
+   </Resources>
+  </State>
+  <Children>
+   <Item>
+    <ID>luman_uiapp_main_scene</ID>
+    <State type="StateUIObjectStreamedSceneHost">
+     <SceneName>luman_uiapp_scene</SceneName>
+     <AlwaysFocus value="True" />
+     <GCOnRemove value="True" />
+    </State>
+   </Item>
+  </Children>
+ </FlowRoot>
+</rage__fwuiFlowBlock>

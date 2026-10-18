@@ -2,6 +2,8 @@
 
 > A practical collection of **RedM UIAPPS scripts** — working Lua examples that show how to talk to the game's native UI layer using the DataBinding API. HUD elements, menus, overlays, scoreboards, and native UIApps like `fast_travel_menu`, `satchel`, and `shop`.
 >
+> **New: UI apps of your own.** A resource can stream new flow blocks and new scenes that the game's UI draws — see [examples/custom-uiapp](examples/custom-uiapp).
+>
 > **New: a full reference read from the game files.** Every app, launch entry, UI event, DataBinding path, list template and HUD context RDR2 ships — see [docs/](docs/) and [how it was made](docs/research.md).
 
 **Looking for premium RedM scripts?** Browse the full catalog at **[lumanstudio.com](https://lumanstudio.com)** — production-ready RedM and FiveM scripts for VORP, RedEM:RP, and standalone servers.
@@ -122,6 +124,7 @@ Three lines — container, bool, int — and the game renders the icon. That is 
 | `hud_context.lua` | Turning HUD contexts on and off; the money HUD and the honor meter shown through `HUD_CTX_TITHING` and `HUD_CTX_HONOR_SHOW` |
 | `flow_block_host.lua` | Hosting any flow block with an entry point, without its app — the shop item card through `shop_browsing` / `catalog_item_inspection` |
 | `ui_events.lua` | A small helper that polls a UI event channel and hands each event to a callback |
+| `examples/custom-uiapp/` | A complete resource: a scene and a flow block of its own, streamed, filled from Lua (`/myapp`) |
 
 The last three are built from the game-file reference and have not been run in game yet.
 

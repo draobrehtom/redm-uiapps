@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UIMovieView>
+ <Name>LumanAppRoot</Name>
+ <MovieFileName>UIOBJECT_SCENE_GENERIC</MovieFileName>
+ <UseLayoutEngine value="True" />
+ <LayoutAttachmentOverride>safeframe_ui_main_screen</LayoutAttachmentOverride>
+ <LayoutParams type="rage__LayoutParamInstanceAsset">
+  <params>
+   <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+   <verticalAlignment>VALIGN_STRETCH</verticalAlignment>
+   <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+   <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+  </params>
+ </LayoutParams>
+ <Children>
+  <Item type="UIPanel">
+   <Name>PAN_Card</Name>
+   <UseLayoutEngine value="True" />
+   <LayoutParams type="rage__LayoutParamInstanceAsset">
+    <params>
+     <horizontalAlignment>HALIGN_LEFT</horizontalAlignment>
+     <verticalAlignment>VALIGN_TOP</verticalAlignment>
+     <widthContentMode>CONTENT_MODE_RAW</widthContentMode>
+     <heightContentMode>CONTENT_MODE_RAW</heightContentMode>
+     <width value="560" />
+     <height value="380" />
+     <topMargin value="120" />
+    </params>
+   </LayoutParams>
+   <Children>
+    <Item type="UIImage">
+     <Name>IMG_Background</Name>
+     <TextureDictionary>generic_textures</TextureDictionary>
+     <Texture>INKROLLER_1A</Texture>
+     <Style>INK_BACKGROUND_COLOR</Style>
+     <UseLayoutEngine value="True" />
+     <LayoutParams type="rage__LayoutParamInstanceAsset">
+      <params>
+       <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+       <verticalAlignment>VALIGN_STRETCH</verticalAlignment>
+       <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+       <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+      </params>
+     </LayoutParams>
+     <SpecializedLayoutParams>
+      <Item type="rage__SpecializedParamInstanceAsset">
+       <params type="rage__fwuiStretchParams">
+        <Stretch>FILL</Stretch>
+       </params>
+      </Item>
+     </SpecializedLayoutParams>
+    </Item>
+    <Item type="UIStackPanel">
+     <Name>STACK_Content</Name>
+     <UseLayoutEngine value="True" />
+     <LayoutParams type="rage__LayoutParamInstanceAsset">
+      <params>
+       <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+       <verticalAlignment>VALIGN_TOP</verticalAlignment>
+       <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+       <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+       <leftMargin value="40" />
+       <rightMargin value="40" />
+       <topMargin value="36" />
+      </params>
+     </LayoutParams>
+     <SpecializedLayoutParams>
+      <Item type="rage__SpecializedParamInstanceAsset">
+       <params type="rage__StackPanelParams">
+        <orientation>PANEL_ORIENT_VERTICAL</orientation>
+       </params>
+      </Item>
+     </SpecializedLayoutParams>
+     <Children>
+      <Item type="UIText">
+       <Name>TXT_Title</Name>
+       <UseLayoutEngine value="True" />
+       <LayoutParams type="rage__LayoutParamInstanceAsset">
+        <params>
+         <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+         <verticalAlignment>VALIGN_TOP</verticalAlignment>
+         <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+         <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+        </params>
+       </LayoutParams>
+       <Style>HEADER_MAIN</Style>
+       <HAlign>CENTER</HAlign>
+       <MemberBindings>
+        <Item>
+         <MemberName>RawText</MemberName>
+         <Setup>
+          <Path>ScriptDatastoreRoot.LumanApp.title</Path>
+          <PathType>PATH_ABSOLUTE</PathType>
+         </Setup>
+        </Item>
+       </MemberBindings>
+      </Item>
+      <Item type="UIImage">
+       <Name>IMG_Divider</Name>
+       <TextureDictionary>menu_textures</TextureDictionary>
+       <Texture>DIVIDER_LINE</Texture>
+       <UseLayoutEngine value="True" />
+       <LayoutParams type="rage__LayoutParamInstanceAsset">
+        <params>
+         <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+         <verticalAlignment>VALIGN_TOP</verticalAlignment>
+         <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+         <heightContentMode>CONTENT_MODE_RAW</heightContentMode>
+         <height value="4" />
+         <topMargin value="10" />
+         <bottomMargin value="18" />
+        </params>
+       </LayoutParams>
+      </Item>
+      <Item type="UIText">
+       <Name>TXT_Body</Name>
+       <UseLayoutEngine value="True" />
+       <LayoutParams type="rage__LayoutParamInstanceAsset">
+        <params>
+         <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+         <verticalAlignment>VALIGN_TOP</verticalAlignment>
+         <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+         <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+        </params>
+       </LayoutParams>
+       <Style>BODY</Style>
+       <HAlign>CENTER</HAlign>
+       <ParagraphStyle>MULTILINE</ParagraphStyle>
+       <MemberBindings>
+        <Item>
+         <MemberName>RawText</MemberName>
+         <Setup>
+          <Path>ScriptDatastoreRoot.LumanApp.body</Path>
+          <PathType>PATH_ABSOLUTE</PathType>
+         </Setup>
+        </Item>
+       </MemberBindings>
+      </Item>
+      <Item type="UIText">
+       <Name>TXT_Footer</Name>
+       <UseLayoutEngine value="True" />
+       <LayoutParams type="rage__LayoutParamInstanceAsset">
+        <params>
+         <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+         <verticalAlignment>VALIGN_TOP</verticalAlignment>
+         <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+         <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+         <topMargin value="30" />
+        </params>
+       </LayoutParams>
+       <Style>BODY</Style>
+       <HAlign>CENTER</HAlign>
+       <Color>COLOR_RED</Color>
+       <MemberBindings>
+        <Item>
+         <MemberName>RawText</MemberName>
+         <Setup>
+          <Path>ScriptDatastoreRoot.LumanApp.footer</Path>
+          <PathType>PATH_ABSOLUTE</PathType>
+         </Setup>
+        </Item>
+       </MemberBindings>
+      </Item>
+     </Children>
+    </Item>
+   </Children>
+  </Item>
+ </Children>
+</UIMovieView>

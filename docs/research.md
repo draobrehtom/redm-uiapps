@@ -104,12 +104,26 @@ at a render target with `UI_MOVIEVIEW_SET_RENDER_TARGET` (`0x51DE09A2196BD951`).
 newspapers. Their render targets are named in the data (`catalogue01x_ct` and others; the reference page marks these
 scenes). The arguments of these two natives are not documented yet.
 
-## Can new UI files be shipped?
+## Shipping UI files in a resource
 
-RedM loads non-binary `.ymt` in general ([issue #1702](https://github.com/citizenfx/fivem/issues/1702)), and codexcli now
-rebuilds UI files from XML. Whether files under `data/ui` are picked up from a resource's `stream/` folder is still to be
-tested in game. A test resource does both checks: a replaced `widgets/hud/tithing.ymt` with red icons, and a new flow block
-`luman_test_flow` requested by script.
+Tested in RedM on 2026-10-18 with a test resource (files built with codexcli):
+
+| Test | Result |
+|---|---|
+| `stream/hud.ymt` replacing the HUD scene (radar moved to the top right) | **ignored** |
+| `stream/tithing.ymt` replacing the money widget (icons coloured red) | **ignored** |
+| `stream/luman_test_flow.ymt`, a flow block with a new id, hosted with `_UIFLOWBLOCK_REQUEST` | **loaded** |
+| control: requesting a flow block that exists nowhere | not loaded (handle 0) |
+| `stream/luman_scene_flow.ymt` + `stream/luman_test_scene.ymt`: a new flow showing a new scene with a red marker | **loaded, marker shown** |
+
+So a resource cannot change the game's UI files, but it can add UI of its own: new flow blocks and new scenes are
+streamed by name. A flow lists its scene as `UIObjectSceneStreamingDependencyResource` and shows it with
+`StateUIObjectStreamedSceneHost`. [examples/custom-uiapp](../examples/custom-uiapp) is a working card built this way.
+
+Screens, widgets and flows have no data file type. The data file types the game does have (read from the enum table
+in `RDR2.exe`; names resolved by `joaat` without lower-casing) include `UI_STYLES_DATA`, `UI_LOCALISED_STYLES_DATA`,
+`UI_INPUT_CONTEXT_DATA`, `UI_BLIP_DATA`, `UI_MAP_DATA` and `UI_TRACKING_FILE`. Whether a style catalog given as
+`data_file 'UI_STYLES_DATA'` is used is being tested.
 
 ## Reproducing the data
 
@@ -126,8 +140,6 @@ python -I tools/gen_docs.py catalog.json docs/
 
 - The app id → launcher flow pairing is in code. `gen_docs.py` pairs them by name (file name or flow block id);
   `policies_menu` and `rockstar_editor` are not paired.
-- Whether RedM loads replaced or new files under `data/ui` from a resource has not been tested. If it does, new
-  screens and flows could be shipped: codexcli builds `.ymt` from XML (`fromxml`).
 - Text bound with `Text` takes a label hash; the strings themselves are in the game's `.gxt2` files, which are not
   part of this catalog.
 - 145 hashed file names are still unresolved.
