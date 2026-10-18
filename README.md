@@ -1,6 +1,8 @@
 # RedM UIAPPS — Native UI Examples and Lua Snippets for RedM Scripts
 
 > A practical collection of **RedM UIAPPS scripts** — working Lua examples that show how to talk to the game's native UI layer using the DataBinding API. HUD elements, menus, overlays, scoreboards, and native UIApps like `fast_travel_menu`, `satchel`, and `shop`.
+>
+> **New: a full reference read from the game files.** Every app, launch entry, UI event, DataBinding path, list template and HUD context RDR2 ships — see [docs/](docs/) and [how it was made](docs/research.md).
 
 **Looking for premium RedM scripts?** Browse the full catalog at **[lumanstudio.com](https://lumanstudio.com)** — production-ready RedM and FiveM scripts for VORP, RedEM:RP, and standalone servers.
 
@@ -15,7 +17,9 @@
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Included Examples](#included-examples)
+- [Reference From the Game Files](#reference-from-the-game-files)
 - [Native UIApps Reference](#native-uiapps-reference)
+- [Beyond the 37 Apps](#beyond-the-37-apps)
 - [UIScript Event Types](#uiscript-event-types)
 - [Working With DataBinding](#working-with-databinding)
 - [Event Handling Pattern](#event-handling-pattern)
@@ -50,7 +54,8 @@ The goal here is not a framework. It is a reference. Read a file, copy what you 
 
 ## Features
 
-- 16 standalone Lua examples for common RedM UIAPPS use cases
+- 19 standalone Lua examples for common RedM UIAPPS use cases
+- A reference generated from the game's own `data/ui` files: 37 apps with their launch entries, 172 flow blocks, 277 UI events, 2,826 DataBinding paths, 458 list item templates and 96 HUD contexts
 - Coverage of native UIApps: `fast_travel_menu`, `satchel`, `shop`, `hud_quick_select`, `translation_overlay`, and more
 - DataBinding API patterns: containers, strings, ints, hashes, bools, item lists
 - UIScript event handling examples with `eUIScriptEventType` hash table
@@ -67,18 +72,18 @@ The goal here is not a framework. It is a reference. Read a file, copy what you 
 
 ## Installation
 
-```bash
-cd resources
-git clone https://github.com/draobrehtom/redm-uiapps.git
+This is a collection of snippets, not a resource: there is no `fxmanifest.lua`, and several files register the same command names. Copy the file you need into your own resource's client scripts:
+
+```lua
+-- fxmanifest.lua of your resource
+fx_version 'adamant'
+game 'rdr3'
+rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aware my resources *will* become incompatible once RedM ships.'
+
+client_scripts { 'dataview.lua', 'fast_travel.lua' }
 ```
 
-Add to `server.cfg`:
-
-```cfg
-ensure redm-uiapps
-```
-
-Each example is a standalone Lua file. You can delete files you do not need, or copy individual snippets into your existing RedM scripts.
+The examples that read UI events need `dataview.lua` from [meta-hub/redm-events](https://github.com/meta-hub/redm-events/blob/main/dataview.lua).
 
 ## Quick Start
 
@@ -114,12 +119,33 @@ Three lines — container, bool, int — and the game renders the icon. That is 
 | `translate.lua` | Using the `translation_overlay` UIApp for localized string rendering |
 | `wanted.lua` | Driving the wanted-level UI system |
 | `weapon_stats.lua` | Opening the weapon inspection flow (`PM_FLOW_WEAPON_INSPECT`) and binding stats |
+| `hud_context.lua` | Turning HUD contexts on and off; the money HUD and the honor meter shown through `HUD_CTX_TITHING` and `HUD_CTX_HONOR_SHOW` |
+| `flow_block_host.lua` | Hosting any flow block with an entry point, without its app — the shop item card through `shop_browsing` / `catalog_item_inspection` |
+| `ui_events.lua` | A small helper that polls a UI event channel and hands each event to a callback |
+
+The last three are built from the game-file reference and have not been run in game yet.
 
 Each file is self-contained and can be copied out of the repo into your own RedM script.
 
+## Reference From the Game Files
+
+RDR2's UI is data: state machines (`flow/`), scenes (`screens/`), reusable widgets (`widgets/`), the HUD visibility tree and a list of apps, all PSO `.ymt` files under `data/ui` in the game archives. The pages in [`docs/`](docs/) are generated from those files with codexcli and [`tools/`](tools/):
+
+| Page | What it answers |
+|---|---|
+| [docs/apps.md](docs/apps.md) | What each app is called, which flow it starts, its entry points with hashes for `LaunchUiappByHashWithEntry`, its event channels |
+| [docs/datastore.md](docs/datastore.md) | Every DataBinding path a screen reads, what type it takes, and which screen reads it |
+| [docs/events.md](docs/events.md) | Every event channel and the parameter hashes a screen or flow sends on it |
+| [docs/templates.md](docs/templates.md) | The aliases for `DatabindingInsertUiItemToListFromContextStringAlias` and the widget each one builds |
+| [docs/hud.md](docs/hud.md) | Which HUD slots each `HUD_CTX_*` context hides or shows |
+| [docs/flows.md](docs/flows.md) | All 172 flow blocks, their entries and scenes |
+| [docs/research.md](docs/research.md) | How the UI files fit together, and what is still unknown |
+
+Some of what it settles: the magic numbers in community scripts are named entry points (`-702860656` is `catalog_item_inspection`, `-649639953` is `horse_stats_info_card`, both in `shop_browsing`), and `1670279562` in `money_hud.lua` is `HUD_CTX_TITHING`.
+
 ## Native UIApps Reference
 
-These are the native UIApps RedM exposes and that you can launch via `LaunchUiappByHash`:
+These are the 37 app ids in `data/ui/applaunch/launchconditions.ymt`, the ones `LaunchUiappByHash` accepts. [docs/apps.md](docs/apps.md) has each one's flow and entry points:
 
 ```
 abilities                 map
@@ -148,7 +174,14 @@ lobbies_menu              saveload_menu
                           weapon_locker
 ```
 
-Each UIApp expects a specific set of data-binding paths. Look at the examples in this repo for the containers, keys, and value types the game consumes.
+Each UIApp expects a specific set of data-binding paths. [docs/datastore.md](docs/datastore.md) lists them per root container, with the value type.
+
+## Beyond the 37 Apps
+
+- **Any flow block can be shown from a script.** `_UIFLOWBLOCK_REQUEST` → `_UIFLOWBLOCK_ENTER` → `UI_STATE_MACHINE_CREATE` hosts a flow without its app; `weapon_stats.lua` and `flow_block_host.lua` do this. There are 172 flow blocks.
+- **HUD widgets need their context.** A HUD widget is always loaded; it shows when its slot is visible, and a slot is visible when a context that shows it is on. [docs/hud.md](docs/hud.md) maps contexts to slots.
+- **Lists take any alias the running flow registered**, and list items carry their own event channel and select hash, so a script can define events of its own.
+- **Paths can be relative.** A widget sets a binding context and its children bind relative paths; `Tithing` → `CampFunds` → `dollars` is one path. The reference resolves these chains.
 
 ## UIScript Event Types
 
@@ -184,7 +217,7 @@ enum eUIScriptEventType : Hash
 };
 ```
 
-In Lua, use the hash form directly — `ITEM_FOCUSED`, `ITEM_SELECTED`, etc. — and compare against the 32-bit int you read from the event buffer.
+In Lua, use the hash form directly — `ITEM_FOCUSED`, `ITEM_SELECTED`, etc. — and compare against the 32-bit int you read from the event buffer. The parameter hash at offset 16 (`FAST_TRAVEL_UI_EVENT_EXIT` and the like) tells which control sent it; [docs/events.md](docs/events.md) lists them per channel.
 
 ## Working With DataBinding
 
@@ -236,6 +269,10 @@ Reference implementation from [aaron1a12/wild](https://github.com/aaron1a12/wild
 **Events do not arrive.** Confirm the UIApp is actually running (`IsUiappRunningByHash`) and that you are polling with `EventsUiIsPending` / `EventsUiGetMessage` each frame.
 
 **Changes do not appear.** Some UIApps cache on open. Close and re-launch after changing the container, or use `DatabindingWrite…` on an existing handle instead of `Add…` twice.
+
+**HUD element does not show.** Its HUD slot is hidden. Enable a context that shows the slot — see [docs/hud.md](docs/hud.md) and `hud_context.lua`.
+
+**List stays empty.** The alias passed to `DatabindingInsertUiItemToListFromContextStringAlias` must be one the running flow registered ([docs/templates.md](docs/templates.md)).
 
 **HUD elements persist after you are done.** Call `DatabindingRemoveDataEntry` on each handle when cleaning up — otherwise the overlay stays visible.
 
