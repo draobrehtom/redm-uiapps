@@ -29,8 +29,10 @@ codexcli xmlmany list.txt
 
 The UI files are RBF (binary XML). Older codexcli builds lose two things when they write them as XML: the
 `type="UIRectangle"` attribute that names an element's class (children came out as plain `<Item>`), and text
-content, written as `<>VALUE</>`. Use a build with the `DataBag` fix: the classes are then real (`UIImage`, `UIMeter`,
-`uiMaskBehavior` …) and the XML builds back into a `.ymt` with `codexcli fromxml <name>.rbf.xml <out.ymt>`.
+content, written as `<>VALUE</>`; they also dropped `<type>` child elements (grid tracks lost `SIZING_TYPE_AUTO`) and
+the `key` of `<Item key="1" value="80" />`. Use a build with these fixes (CodeX commit 6d1c9b9 or later): the classes are then real (`UIImage`, `UIMeter`,
+`uiMaskBehavior` …) and the XML builds back into a `.ymt` with `codexcli fromxml <name>.rbf.xml <out.ymt>` — byte for byte the game's file when
+nothing was edited.
 `extract.py` still reads the older output.
 
 ## Building the catalog and the docs
