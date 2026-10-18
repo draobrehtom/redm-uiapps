@@ -1012,6 +1012,8 @@ Every absolute path under `ScriptDatastoreRoot` that a screen or widget reads, i
 | `GenericShop.Scene.Business.MaterialsTextureDictionary` | string | TextureDictionary | `screens/sidemenus/shops/generic/menu_list` |
 | `GenericShop.Scene.Business.ProductionTexture` | string | Texture | `screens/sidemenus/shops/generic/menu_list` |
 | `GenericShop.Scene.Business.ProductionTextureDictionary` | string | TextureDictionary | `screens/sidemenus/shops/generic/menu_list` |
+| `GenericShop.Scene.Business.Stat_Left_Label` | hash | Text | `screens/sidemenus/shops/generic/menu_list` |
+| `GenericShop.Scene.Business.Stat_Right_Label` | hash | Text | `screens/sidemenus/shops/generic/menu_list` |
 | `GenericShop.Scene.Business.canBuy` | int | Alpha | `screens/sidemenus/shops/generic/menu_list` |
 | `GenericShop.Scene.Business.isAffordable` | bool | Enabled | `screens/sidemenus/shops/generic/menu_list` |
 | `GenericShop.Scene.Business.isGoldPrice` | bool | Visible | `screens/sidemenus/shops/generic/menu_list` |
@@ -1127,9 +1129,24 @@ Every absolute path under `ScriptDatastoreRoot` that a screen or widget reads, i
 | `GenericShop.Scene.WeaponReloadNew` | int | Value | `widgets/sidemenu/shops/generic/shop_item_weapon_stats` |
 | `GenericShop.Scene.WeaponReloadValue` | bool | Enabled, StartingValue, Value | `widgets/sidemenu/shops/generic/shop_item_weapon_stats` |
 | `GenericShop.Scene.WeaponStatsVisible` | bool | Visible | `screens/sidemenus/shops/generic/item_list_weapon_stats` |
+| `GenericShop.Scene.canBuy` | int | Alpha | `screens/sidemenus/shops/generic/item_grid` |
 | `GenericShop.Scene.horseRpgStats` | int |  | `widgets/sidemenu/shops/generic/shop_short_item_horse_stats` |
+| `GenericShop.Scene.isAffordable` | bool | Enabled | `screens/sidemenus/shops/generic/item_grid` |
+| `GenericShop.Scene.isGoldPrice` | bool | Visible | `screens/sidemenus/shops/generic/item_grid` |
+| `GenericShop.Scene.locked` | bool | Visible | `screens/sidemenus/shops/generic/item_grid` |
 | `GenericShop.Scene.price_details` | int |  | `screens/sidemenus/shops/generic/bounty_management` +13 |
 | `GenericShop.Scene.price_details.visible` | bool | Visible | `screens/sidemenus/shops/generic/item_list_description` +5 |
+| `GenericShop.Scene.purchaseLabel` | string | RawText | `screens/sidemenus/shops/generic/item_grid` |
+| `GenericShop.Scene.purchaseModifiedPrice` | bool | Visible | `screens/sidemenus/shops/generic/item_grid` |
+| `GenericShop.Scene.purchasePrice` | bool | Visible | `screens/sidemenus/shops/generic/item_grid` |
+| `GenericShop.Scene.rank` | string | RawText | `screens/sidemenus/shops/generic/item_grid` |
+| `GenericShop.Scene.rankLocked` | bool | Visible | `screens/sidemenus/shops/generic/item_grid` |
+| `GenericShop.Scene.rankTexture` | string | Texture | `screens/sidemenus/shops/generic/item_grid` |
+| `GenericShop.Scene.rightPriceRawText` | string | RawText | `screens/sidemenus/shops/generic/item_grid` |
+| `GenericShop.Scene.rightPriceText` | hash | Text | `screens/sidemenus/shops/generic/item_grid` |
+| `GenericShop.Scene.rightPriceTextVisible` | bool | Visible | `screens/sidemenus/shops/generic/item_grid` |
+| `GenericShop.Scene.tokenPrice` | bool | Visible | `screens/sidemenus/shops/generic/item_grid` |
+| `GenericShop.Scene.visible` | bool | Visible | `screens/sidemenus/shops/generic/item_grid` |
 | `GenericShop.Title` | hash | BindingSetup, Text | `screens/sidemenus/shops/generic/generic_shop_main` |
 | `GenericShop.currentPaletteIndex` | string | BindingSetup, RawText | `widgets/sidemenu/shops/generic/list_items/shop_palette_entry` +1 |
 | `GenericShop.paletteItemCount` | string | RawText | `widgets/sidemenu/shops/generic/shop_item_palette_list_scroller` |
@@ -1146,6 +1163,26 @@ Every absolute path under `ScriptDatastoreRoot` that a screen or widget reads, i
 | `gesturewheel.focusedPrimaryItemName` | hash | Text | `screens/emotes_menu/emote_radial_main` |
 | `gesturewheel.focusedPrimaryItemVisible` | bool | Visible | `screens/emotes_menu/emote_radial_main` |
 | `gesturewheel.focusedSlotName` | hash | Text | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot0.favoredIcon_Visible` | bool | Visible | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot0.main_dictionary` | string | TextureDictionary | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot0.main_image` | string | Texture | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot0.sampleButtonVisible` | bool | Visible | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot0.slotCyclerVisible` | bool | Visible | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot1.favoredIcon_Visible` | bool | Visible | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot1.main_dictionary` | string | TextureDictionary | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot1.main_image` | string | Texture | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot1.sampleButtonVisible` | bool | Visible | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot1.slotCyclerVisible` | bool | Visible | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot2.favoredIcon_Visible` | bool | Visible | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot2.main_dictionary` | string | TextureDictionary | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot2.main_image` | string | Texture | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot2.sampleButtonVisible` | bool | Visible | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot2.slotCyclerVisible` | bool | Visible | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot3.favoredIcon_Visible` | bool | Visible | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot3.main_dictionary` | string | TextureDictionary | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot3.main_image` | string | Texture | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot3.sampleButtonVisible` | bool | Visible | `screens/emotes_menu/emote_radial_main` |
+| `gesturewheel.slot3.slotCyclerVisible` | bool | Visible | `screens/emotes_menu/emote_radial_main` |
 
 ## `gfh_missions_data`
 
@@ -2873,6 +2910,7 @@ Every absolute path under `ScriptDatastoreRoot` that a screen or widget reads, i
 
 | Path | Type | Bound to | Read by |
 |---|---|---|---|
+| `PromptTitle` | int |  | `screens/hud/prompts` |
 | `PromptTitle.IsDividerVisible` | bool | Visible | `screens/hud/prompts` |
 | `PromptTitle.IsMeterVisible` | bool | Visible | `screens/hud/prompts` |
 | `PromptTitle.IsVisible` | bool | Visible | `screens/hud/prompts` |
@@ -3555,6 +3593,8 @@ Every absolute path under `ScriptDatastoreRoot` that a screen or widget reads, i
 |---|---|---|---|
 | `TraderMenu` | int |  | `screens/sidemenus/trader/sidemenu_trader` |
 | `TraderMenu.Info.@.TRADER_HELPER.SCROLL_VIEWER.Navigable.FocusY` | int | Alpha | `screens/sidemenus/trader/sidemenu_trader` |
+| `TraderMenu.Info.Stat_Left_Label` | hash | Text | `screens/sidemenus/trader/sidemenu_trader` |
+| `TraderMenu.Info.Stat_Right_Label` | hash | Text | `screens/sidemenus/trader/sidemenu_trader` |
 | `TraderMenu.Info.canBuy` | int | Alpha | `screens/sidemenus/trader/sidemenu_trader` |
 | `TraderMenu.Info.isAffordable` | bool | Enabled | `screens/sidemenus/trader/sidemenu_trader` |
 | `TraderMenu.Info.isGoldPrice` | bool | Visible | `screens/sidemenus/trader/sidemenu_trader` |

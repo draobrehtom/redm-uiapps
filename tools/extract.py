@@ -49,6 +49,17 @@ def text(e, tag):
     return c.text.strip() if c is not None and c.text and c.text.strip() else None
 
 
+def itemtexts(node, path):
+    # values written as <Item>X</Item> (current codexcli) or <Item><>X</></Item> (older builds)
+    out = []
+    for it in node.findall(path):
+        v = it.find('v')
+        t = (v.text if v is not None else it.text) or ''
+        if t.strip():
+            out.append(t.strip())
+    return out
+
+
 files = {}
 errors = []
 for dp, dn, fn in os.walk(ROOT):
@@ -207,7 +218,7 @@ for name, root in files.items():
         if pa.text and pa.text.strip():
             path = pa.text.strip()
         else:
-            path = '.'.join((v.text or '').strip() for v in pa.findall('pathElements/Item/v'))
+            path = '.'.join(itemtexts(pa, 'pathElements/Item'))
         if not path:
             continue
         if path.startswith('ScriptDatastoreRoot.'):
@@ -326,7 +337,7 @@ def pathof(pe):
         return None
     if pe.text and pe.text.strip():
         return pe.text.strip()
-    return '.'.join((v.text or '').strip() for v in pe.findall('pathElements/Item/v')) or None
+    return '.'.join(itemtexts(pe, 'pathElements/Item')) or None
 
 
 def strip_root(p):
@@ -364,7 +375,8 @@ def infer(node):
 
 
 def elem(node, scene, depth=0, prefix=None):
-    d = {'n': text(node, 'Name'), 't': node.tag if node.tag != 'Item' else infer(node)}
+    real = node.get('type') if node.tag == 'Item' and (node.get('type') or '').startswith('UI') else None
+    d = {'n': text(node, 'Name'), 't': real or (node.tag if node.tag != 'Item' else infer(node))}
     # a Context behaviour or an absolute BindingContext sets the base for local bindings below
     for b in node.findall('BehaviorSet/Behaviors/Item'):
         c = b.find('Context')
@@ -384,11 +396,11 @@ def elem(node, scene, depth=0, prefix=None):
     if prefix:
         d['pre'] = prefix
     d.update(lp(node))
-    for k in ('TextureDictionary', 'Texture', 'Color', 'Text', 'Style', 'Font', 'ParagraphStyle', 'HAlign', 'AutoSize'):
+    for k in ('TextureDictionary', 'Texture', 'Color', 'Text', 'Style', 'Font', 'ParagraphStyle', 'HAlign', 'AutoSize', 'FillColor', 'TrackColor', 'MovieFileName'):
         v = text(node, k)
         if v:
             d[k] = v
-    for k in ('Alpha', 'FontSize', 'Visible', 'FlipHorizontal', 'FlipVertical', 'Rotation'):
+    for k in ('Alpha', 'FontSize', 'Visible', 'FlipHorizontal', 'FlipVertical', 'Rotation', 'Minimum', 'Maximum', 'Value'):
         e = node.find(k)
         if e is not None and e.get('value') is not None:
             d[k] = e.get('value')
@@ -410,10 +422,31 @@ def elem(node, scene, depth=0, prefix=None):
                 DERIVED[prefix + '.' + text(s, 'Path')].add((scene, 'anim'))
             if s is not None:
                 binds.append({'m': 'anim:' + (text(b, 'Animation') or text(b, 'Name') or ''), 'p': text(s, 'Path'), 'pt': (text(s, 'PathType') or '').replace('PATH_', '')})
+            if b.find('ItemCreator') is not None:
+                tc = itemtexts(b, 'ItemCreator/TypeConverter/Dictionary/Item')
+                if tc:
+                    d['listTypes'] = tc
             if b.find('ItemCreator') is not None and b.find('BindingContext') is not None:
                 lpth = pathof(b.find('BindingContext/Path'))
                 if lpth:
                     d['list'] = strip_root(lpth) if text(b.find('BindingContext'), 'PathType') != 'PATH_RELATIVE' or not prefix else prefix + '.' + lpth
+            bt = b.get('type') or ''
+            if bt == 'uiMaskBehavior':
+                d['mask'] = True
+            elif bt == 'uiRenderTargetModelBehavior':
+                d['rt'] = text(b, 'RenderTarget') or True
+            elif bt == 'uiRawOffsetBehavior':
+                for k, kk in (('XOffset', 'ox'), ('YOffset', 'oy')):
+                    e = b.find(k)
+                    if e is not None and num(e.get('value')) is not None:
+                        d[kk] = num(e.get('value'))
+            elif bt == 'uiProportionalOffsetBehavior':
+                for k, kk in (('HorizontalRatio', 'prx'), ('VerticalRatio', 'pry')):
+                    e = b.find(k)
+                    if e is not None and num(e.get('value')) is not None:
+                        d[kk] = num(e.get('value'))
+            elif bt == 'uiDisplayObjectBehavior':
+                d['flash'] = True
             sl = text(b, 'SlotType')
             if sl:
                 d['slot'] = sl
@@ -428,6 +461,10 @@ def elem(node, scene, depth=0, prefix=None):
     tpl = node.find('Instancing')
     if tpl is not None:
         d['inst'] = [text(i, 'Type') for i in tpl if text(i, 'Type')]
+        pos = [[num(i.find('PosX').get('value')) if i.find('PosX') is not None else None,
+                num(i.find('PosY').get('value')) if i.find('PosY') is not None else None] for i in tpl if text(i, 'Type')]
+        if any(x is not None or y is not None for x, y in pos):
+            d['instPos'] = pos
     kids = []
     ch = node.find('Children')
     if ch is not None and depth < 40:

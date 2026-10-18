@@ -57,9 +57,9 @@ Scenes: `collectors/collectors_bag_details`, `collectors_app_host`
 
 | Entry | Hash for `LaunchUiappByHashWithEntry` | In flow | Goes to |
 |---|---|---|---|
-| `default` | `0xE4DF46D5` / `-455129387` | `coupons_menu_flow` | `coupons_details` |
 | `default` | `0xE4DF46D5` / `-455129387` | `coupons_launcher_flow` | `coupons_game.input_context_switch` |
 | `FromPause` | `0x83444ECC` / `-2092675380` | `coupons_launcher_flow` | `coupons_pause.input_context_switch` |
+| `default` | `0xE4DF46D5` / `-455129387` | `coupons_menu_flow` | `coupons_details` |
 
 Scenes: `coupons/coupons_details`, `coupons_app_host`
 
@@ -83,10 +83,10 @@ Scenes: `sidemenus/crafting/sidemenu_crafting`, `sidemenus/host_crafting`
 
 | Entry | Hash for `LaunchUiappByHashWithEntry` | In flow | Goes to |
 |---|---|---|---|
-| `default` | `0xE4DF46D5` / `-455129387` | `end_credits_sub_flow` | `` |
-| `no_wait` | `0x3B71E8C3` / `997320899` | `end_credits_sub_flow` | `scene.anim_complete` |
 | `full_sequence` | `0x73F137B9` / `1945188281` | `end_credits_launcher_flow` | `end_credits_host.resources_0.endcredits_card_subflow` |
 | `skip_to_list` | `0x8575431C` / `-2055912676` | `end_credits_launcher_flow` | `end_credits_host.end_credits_scrolling_list` |
+| `default` | `0xE4DF46D5` / `-455129387` | `end_credits_sub_flow` | `` |
+| `no_wait` | `0x3B71E8C3` / `997320899` | `end_credits_sub_flow` | `scene.anim_complete` |
 
 Event channels from its flows: `END_CREDITS`
 
@@ -109,6 +109,9 @@ Scenes: `fast_travel/fast_travel_main`, `fast_travel/fast_travel_root`, `fast_tr
 
 | Entry | Hash for `LaunchUiappByHashWithEntry` | In flow | Goes to |
 |---|---|---|---|
+| `default` | `0xE4DF46D5` / `-455129387` | `help_main_flow` | `input_context_switch` |
+| `articles` | `0xD50F94D1` / `-720399151` | `help_main_flow` | `articles_direct.articles_direct_input_context_switch.articles_screen_direct` |
+| `subarticles` | `0xC2ACE7E4` / `-1028855836` | `help_main_flow` | `articles_nested_direct.articles_nested_direct_input_context_switch.articles_screen_nested_direct` |
 | `default` | `0xE4DF46D5` / `-455129387` | `help_launcher_flow` | `` |
 | `general` | `0x6B34FE60` / `1798635104` | `help_launcher_flow` | `input_context_switch.help_preamble.help_postamble.pause_movie_surrogate.help_flow_host_articles` |
 | `combat` | `0x57779727` / `1467455271` | `help_launcher_flow` | `input_context_switch.help_preamble.help_postamble.pause_movie_surrogate.help_flow_host_articles` |
@@ -120,9 +123,6 @@ Scenes: `fast_travel/fast_travel_main`, `fast_travel/fast_travel_root`, `fast_tr
 | `fff` | `0xB3A70EA4` / `-1280897372` | `help_launcher_flow` | `input_context_switch.help_preamble.help_postamble.pause_movie_surrogate.help_flow_host_subarticles` |
 | `hunting` | `0x56BC58B4` / `1455184052` | `help_launcher_flow` | `input_context_switch.help_preamble.help_postamble.pause_movie_surrogate.help_flow_host_subarticles` |
 | `poker` | `0x14BE1688` / `348001928` | `help_launcher_flow` | `input_context_switch.help_preamble.help_postamble.pause_movie_surrogate.help_flow_host_subarticles` |
-| `default` | `0xE4DF46D5` / `-455129387` | `help_main_flow` | `input_context_switch` |
-| `articles` | `0xD50F94D1` / `-720399151` | `help_main_flow` | `articles_direct.articles_direct_input_context_switch.articles_screen_direct` |
-| `subarticles` | `0xC2ACE7E4` / `-1028855836` | `help_main_flow` | `articles_nested_direct.articles_nested_direct_input_context_switch.articles_screen_nested_direct` |
 
 Scenes: `help/articles_screen`, `help/sub_categories_index`, `pause_app_host`
 
@@ -133,18 +133,18 @@ Scenes: `help/articles_screen`, `help/sub_categories_index`, `pause_app_host`
 
 | Entry | Hash for `LaunchUiappByHashWithEntry` | In flow | Goes to |
 |---|---|---|---|
+| `default` | `0xE4DF46D5` / `-455129387` | `hub_menu_flow` | `hub_details` |
 | `default` | `0xE4DF46D5` / `-455129387` | `hub_launcher_flow` | `hub_game` |
 | `FromPauseMenu` | `0xD174B801` / `-780879871` | `hub_launcher_flow` | `hub_pause` |
-| `default` | `0xE4DF46D5` / `-455129387` | `hub_menu_flow` | `hub_details` |
-| `run_dlink_now` | `0x1168D66D` / `292083309` | `hub_bigfeed_accept_flow` | `run_dlink_now` |
-| `enter_dlink_app` | `0x64CB9AB8` / `1691065016` | `hub_bigfeed_accept_flow` | `enter_dlink_app` |
-| `handle_send_dlink_info_to_script` | `0x9BA76E41` / `-1683526079` | `hub_bigfeed_accept_flow` | `handle_send_dlink_info_to_script` |
 | `default` | `0xE4DF46D5` / `-455129387` | `hub_bigfeed_flow` | `hub_default_bigfeed` |
 | `single` | `0xB7BC9AB8` / `-1212376392` | `hub_bigfeed_flow` | `hub_single_bigfeed` |
 | `dual` | `0xD69AB80F` / `-694503409` | `hub_bigfeed_flow` | `hub_dual_bigfeed` |
 | `trip` | `0x0CA31B73` / `212015987` | `hub_bigfeed_flow` | `hub_trippar_bigfeed` |
 | `trippar` | `0x0E120448` / `236061768` | `hub_bigfeed_flow` | `hub_trippar_bigfeed` |
 | `intro` | `0xDA8F5F53` / `-628138157` | `hub_bigfeed_flow` | `hub_intro_bigfeed` |
+| `run_dlink_now` | `0x1168D66D` / `292083309` | `hub_bigfeed_accept_flow` | `run_dlink_now` |
+| `enter_dlink_app` | `0x64CB9AB8` / `1691065016` | `hub_bigfeed_accept_flow` | `enter_dlink_app` |
+| `handle_send_dlink_info_to_script` | `0x9BA76E41` / `-1683526079` | `hub_bigfeed_accept_flow` | `handle_send_dlink_info_to_script` |
 
 Scenes: `hub/hub_bigfeed_default`, `hub/hub_bigfeed_dual`, `hub/hub_bigfeed_intro`, `hub/hub_bigfeed_single`, `hub/hub_bigfeed_triple_parallel`, `hub/hub_details`, `hub_app_host`
 
@@ -174,9 +174,9 @@ Scenes: `hud/quick_select/wheel_menu_host`
 | Entry | Hash for `LaunchUiappByHashWithEntry` | In flow | Goes to |
 |---|---|---|---|
 | `leaderboard` | `0x3CF81389` / `1022890889` | `leaderboard_in_match_flow_id` | `` |
-| `leaderboard` | `0x3CF81389` / `1022890889` | `post_match_flow` | `leaderboard` |
 | `leaderboard` | `0x3CF81389` / `1022890889` | `leaderboards_and_post_match_launcher_id` | `leaderboard_launcher` |
 | `post_match` | `0xC51D68F3` / `-987928333` | `leaderboards_and_post_match_launcher_id` | `post_match_launcher` |
+| `leaderboard` | `0x3CF81389` / `1022890889` | `post_match_flow` | `leaderboard` |
 
 Event channels from its flows: `MAIN_LEADERBOARD_HOST`, `STATUS_ALERT_FEED`
 
@@ -218,9 +218,9 @@ Scenes: `sidemenus/host_lobby`, `sidemenus/player_menu/mp/lobby/lobby_game_detai
 
 | Entry | Hash for `LaunchUiappByHashWithEntry` | In flow | Goes to |
 |---|---|---|---|
-| `default` | `0xE4DF46D5` / `-455129387` | `naturalist_menu_flow` | `naturalist_index_data` |
 | `FromWheel` | `0x07480A16` / `122161686` | `naturalist_launcher_flow` | `audio_scene.audio_feedback_context.naturalist_app_host.naturalist_default_resources.enter_animation.naturalist_default_flow` |
 | `FromPause` | `0x83444ECC` / `-2092675380` | `naturalist_launcher_flow` | `audio_scene.audio_feedback_context.naturalist_app_host.naturalist_pause_resources.naturalist_pause_flow` |
+| `default` | `0xE4DF46D5` / `-455129387` | `naturalist_menu_flow` | `naturalist_index_data` |
 
 Scenes: `naturalist_app_host`, `pause_progress_naturalist_details`, `pause_progress_naturalist_grid_horz`, `pause_progress_naturalist_index`
 
@@ -248,14 +248,14 @@ Scenes: `introcredits/intro_credit_sequence`
 | Entry | Hash for `LaunchUiappByHashWithEntry` | In flow | Goes to |
 |---|---|---|---|
 | `default` | `0xE4DF46D5` / `-455129387` | `player_mp_flow` | `player_index` |
+| `default` | `0xE4DF46D5` / `-455129387` | `progress_sp_flow` | `progress_index_data` |
 | `default` | `0xE4DF46D5` / `-455129387` | `help_main_flow` | `input_context_switch` |
 | `articles` | `0xD50F94D1` / `-720399151` | `help_main_flow` | `articles_direct.articles_direct_input_context_switch.articles_screen_direct` |
 | `subarticles` | `0xC2ACE7E4` / `-1028855836` | `help_main_flow` | `articles_nested_direct.articles_nested_direct_input_context_switch.articles_screen_nested_direct` |
 | `sp` | `0xB886F000` / `-1199116288` | `progress_main_flow` | `progress_sp_host` |
 | `mp` | `0x0D5A1FA5` / `224010149` | `progress_main_flow` | `progress_mp_host` |
-| `default` | `0xE4DF46D5` / `-455129387` | `stats_menu_flow` | `player_index` |
 | `default` | `0xE4DF46D5` / `-455129387` | `collectors_menu_flow` | `collectors_items_data` |
-| `default` | `0xE4DF46D5` / `-455129387` | `progress_sp_flow` | `progress_index_data` |
+| `default` | `0xE4DF46D5` / `-455129387` | `stats_menu_flow` | `player_index` |
 | `FromWheel` | `0x07480A16` / `122161686` | `collectors_launcher_flow` | `input_context_switch.audio_scene.audio_feedback_context.collectors_app_host.collectors_default_resources.enter_animation.collectors_default_flow` |
 | `FromPause` | `0x83444ECC` / `-2092675380` | `collectors_launcher_flow` | `input_context_switch.audio_scene.audio_feedback_context.collectors_app_host.collectors_pause_resources.collectors_pause_flow` |
 
@@ -271,16 +271,6 @@ Scenes: `collectors/collectors_bag_details`, `collectors_app_host`, `help/articl
 
 | Entry | Hash for `LaunchUiappByHashWithEntry` | In flow | Goes to |
 |---|---|---|---|
-| `default_entry` | `0xE1488413` / `-515341293` | `flow_mp_legendary_bounty_replay` | `legendary_bounty_replay_menu` |
-| `default` | `0xE4DF46D5` / `-455129387` | `pm_flow_camp_and_properties` | `pm_camp_and_properties_index_mp` |
-| `moonshine_options` | `0x103A6ACA` / `272263882` | `pm_flow_camp_and_properties` | `pm_camp_and_properties_index_mp.pm_moonshine_property_host` |
-| `default` | `0xE4DF46D5` / `-455129387` | `pm_flow_moonshine_property` | `pm_moonshine_shack_index_mp` |
-| `default_entry` | `0xE1488413` / `-515341293` | `pm_flow_sp` | `screen_sidemenu_host.log_activity_wrapper.pm_log_root` |
-| `mission_details` | `0xF330FC13` / `-214893549` | `pm_flow_sp` | `screen_sidemenu_host.log_activity_wrapper.pm_log_root.pm_log_populate_details.pm_log_mission_details_direct` |
-| `notifications` | `0xD2470CCB` / `-767095605` | `pm_flow_sp` | `screen_sidemenu_host.log_activity_wrapper.pm_log_root` |
-| `post_office` | `0xFDD05682` / `-36678014` | `pm_flow_sp` | `screen_sidemenu_host.playermenu_post_office_host` |
-| `notifications_weapon_details` | `0x1DBE4FF3` / `499011571` | `pm_flow_sp` | `screen_sidemenu_host.log_activity_wrapper.pm_log_root.pm_log_notifications_weapon_details_direct` |
-| `notifications_game_invite` | `0x6E6CEB6E` / `1852631918` | `pm_flow_sp` | `screen_sidemenu_host.log_activity_wrapper.pm_log_root.pm_log_notifications_game_invite` |
 | `sp` | `0xB886F000` / `-1199116288` | `playermenu_main` | `audio_scene.feedback_context.sidemenu_host.input_context_switch.anim_post_fx.sp_activity_wrapper.time_warp.RegisterLog.PopulateLog.playermenu_sp_host` |
 | `sp_notifications` | `0x083B87F9` / `138119161` | `playermenu_main` | `audio_scene.feedback_context.sidemenu_host.input_context_switch.anim_post_fx.sp_activity_wrapper.time_warp.RegisterLog.PopulateLog.playermenu_sp_host_notifications` |
 | `sp_post_office` | `0xB27F34B3` / `-1300286285` | `playermenu_main` | `audio_scene.feedback_context.sidemenu_host.input_context_switch.anim_post_fx.sp_activity_wrapper.time_warp.RegisterLog.PopulateLog.playermenu_sp_post_office` |
@@ -304,6 +294,19 @@ Scenes: `collectors/collectors_bag_details`, `collectors_app_host`, `help/articl
 | `mp_animal_sighting_missions` | `0xE4509CBF` / `-464479041` | `playermenu_main` | `audio_scene.feedback_context.sidemenu_host.input_context_switch_mp.RegisterLog.PopulateLog.mp_animal_sighting_missions` |
 | `cloud_drop_mission_info` | `0xCEFC1CB3` / `-822338381` | `playermenu_main` | `audio_scene.feedback_context.sidemenu_host.input_context_switch_mp.RegisterLog.PopulateLog.cloud_drop_mission_info` |
 | `mp_gfh_missions_menu` | `0xA69C2112` / `-1499717358` | `playermenu_main` | `audio_scene.feedback_context.sidemenu_host.input_context_switch_mp.RegisterLog.PopulateLog.mp_gfh_missions_menu` |
+| `default_entry` | `0xE1488413` / `-515341293` | `pm_flow_sp` | `screen_sidemenu_host.log_activity_wrapper.pm_log_root` |
+| `mission_details` | `0xF330FC13` / `-214893549` | `pm_flow_sp` | `screen_sidemenu_host.log_activity_wrapper.pm_log_root.pm_log_populate_details.pm_log_mission_details_direct` |
+| `notifications` | `0xD2470CCB` / `-767095605` | `pm_flow_sp` | `screen_sidemenu_host.log_activity_wrapper.pm_log_root` |
+| `post_office` | `0xFDD05682` / `-36678014` | `pm_flow_sp` | `screen_sidemenu_host.playermenu_post_office_host` |
+| `notifications_weapon_details` | `0x1DBE4FF3` / `499011571` | `pm_flow_sp` | `screen_sidemenu_host.log_activity_wrapper.pm_log_root.pm_log_notifications_weapon_details_direct` |
+| `notifications_game_invite` | `0x6E6CEB6E` / `1852631918` | `pm_flow_sp` | `screen_sidemenu_host.log_activity_wrapper.pm_log_root.pm_log_notifications_game_invite` |
+| `default_entry` | `0xE1488413` / `-515341293` | `flow_mp_legendary_bounty_replay` | `legendary_bounty_replay_menu` |
+| `default_entry` | `0xE1488413` / `-515341293` | `flow_mp_gfh_missions` | `gfh_missions` |
+| `default_entry` | `0xE1488413` / `-515341293` | `pm_flow_minigame` | `pm_minigame_index_mp` |
+| `landing` | `0x0FA9B6C5` / `262780613` | `pm_flow_minigame` | `pm_minigame_landing_mp` |
+| `jip_landing` | `0xC9D530D5` / `-908775211` | `pm_flow_minigame` | `pm_minigame_jip_landing_mp` |
+| `invites` | `0xB5EF76EB` / `-1242597653` | `pm_flow_minigame` | `pm_minigame_index_mp.pm_invites_index` |
+| `invite_players` | `0xD2A30C7C` / `-761066372` | `pm_flow_minigame` | `pm_minigame_index_mp.pm_invite_players` |
 | `default_entry` | `0xE1488413` / `-515341293` | `pm_flow_mp` | `screen_sidemenu_host.pm_root_index_mp` |
 | `invites` | `0xB5EF76EB` / `-1242597653` | `pm_flow_mp` | `screen_sidemenu_host.pm_root_index_mp.pm_invites_index` |
 | `telegram_entry` | `0xD1E8EE1A` / `-773263846` | `pm_flow_mp` | `screen_sidemenu_host.pm_root_index_mp.pm_telegram` |
@@ -325,12 +328,9 @@ Scenes: `collectors/collectors_bag_details`, `collectors_app_host`, `help/articl
 | `mp_animal_sighting_missions` | `0xE4509CBF` / `-464479041` | `pm_flow_mp` | `screen_sidemenu_host.mp_animal_sighting_missions` |
 | `cloud_drop_mission_info` | `0xCEFC1CB3` / `-822338381` | `pm_flow_mp` | `screen_sidemenu_host.cloud_drop_mission_info` |
 | `mp_gfh_missions_menu` | `0xA69C2112` / `-1499717358` | `pm_flow_mp` | `screen_sidemenu_host.mp_gfh_missions_menu` |
-| `default_entry` | `0xE1488413` / `-515341293` | `pm_flow_minigame` | `pm_minigame_index_mp` |
-| `landing` | `0x0FA9B6C5` / `262780613` | `pm_flow_minigame` | `pm_minigame_landing_mp` |
-| `jip_landing` | `0xC9D530D5` / `-908775211` | `pm_flow_minigame` | `pm_minigame_jip_landing_mp` |
-| `invites` | `0xB5EF76EB` / `-1242597653` | `pm_flow_minigame` | `pm_minigame_index_mp.pm_invites_index` |
-| `invite_players` | `0xD2A30C7C` / `-761066372` | `pm_flow_minigame` | `pm_minigame_index_mp.pm_invite_players` |
-| `default_entry` | `0xE1488413` / `-515341293` | `flow_mp_gfh_missions` | `gfh_missions` |
+| `default` | `0xE4DF46D5` / `-455129387` | `pm_flow_camp_and_properties` | `pm_camp_and_properties_index_mp` |
+| `moonshine_options` | `0x103A6ACA` / `272263882` | `pm_flow_camp_and_properties` | `pm_camp_and_properties_index_mp.pm_moonshine_property_host` |
+| `default` | `0xE4DF46D5` / `-455129387` | `pm_flow_moonshine_property` | `pm_moonshine_shack_index_mp` |
 
 Event channels from its flows: `PLAYER_MENU`, `UI_EVENT_CHANNEL_MISSION`
 
@@ -353,11 +353,11 @@ Scenes: `input3/sidemenus/player_menu/mp/horses`, `input3/sidemenus/player_menu/
 
 | Entry | Hash for `LaunchUiappByHashWithEntry` | In flow | Goes to |
 |---|---|---|---|
-| `default` | `0xE4DF46D5` / `-455129387` | `rewards_menu_flow` | `rewards_details` |
-| `FromCoupons` | `0xD47C95F4` / `-730032652` | `rewards_menu_flow` | `rewards_details.rewards_vip_menu_purchase_event` |
 | `default` | `0xE4DF46D5` / `-455129387` | `rewards_launcher_flow` | `rewards_game.input_context_switch` |
 | `FromPause` | `0x83444ECC` / `-2092675380` | `rewards_launcher_flow` | `rewards_pause.input_context_switch` |
 | `FromCoupons` | `0xD47C95F4` / `-730032652` | `rewards_launcher_flow` | `rewards_coupons.input_context_switch` |
+| `default` | `0xE4DF46D5` / `-455129387` | `rewards_menu_flow` | `rewards_details` |
+| `FromCoupons` | `0xD47C95F4` / `-730032652` | `rewards_menu_flow` | `rewards_details.rewards_vip_menu_purchase_event` |
 
 Event channels from its flows: `UI_EVENT_CHANNEL_REWARDS`
 
@@ -375,9 +375,9 @@ Scenes: `rewards/rewards_store_bg`, `rewards/rewards_vip`, `rewards_app_bg`, `re
 
 | Entry | Hash for `LaunchUiappByHashWithEntry` | In flow | Goes to |
 |---|---|---|---|
+| `default` | `0xE4DF46D5` / `-455129387` | `role_progression_menu_flow` | `role_progression_index` |
 | `default` | `0xE4DF46D5` / `-455129387` | `role_progression_launcher_flow` | `role_progression_game.input_context_switch` |
 | `FromPause` | `0x83444ECC` / `-2092675380` | `role_progression_launcher_flow` | `role_progression_pause.input_context_switch` |
-| `default` | `0xE4DF46D5` / `-455129387` | `role_progression_menu_flow` | `role_progression_index` |
 
 Event channels from its flows: `UI_EVENT_CHANNEL_ROLE_PROGRESSION`
 

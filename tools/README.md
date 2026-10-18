@@ -26,8 +26,11 @@ codexcli find "data\ui\" > uifiles.txt
 codexcli xmlmany list.txt
 ```
 
-`codexcli xml` writes converter dictionary values as `<>VALUE</>`. That is not valid XML; `extract.py` rewrites it
-before parsing.
+The UI files are RBF (binary XML). Older codexcli builds lose two things when they write them as XML: the
+`type="UIRectangle"` attribute that names an element's class (children came out as plain `<Item>`), and text
+content, written as `<>VALUE</>`. Use a build with the `DataBag` fix: the classes are then real (`UIImage`, `UIMeter`,
+`uiMaskBehavior` …) and the XML builds back into a `.ymt` with `codexcli fromxml <name>.rbf.xml <out.ymt>`.
+`extract.py` still reads the older output.
 
 ## Building the catalog and the docs
 
