@@ -92,6 +92,25 @@ Most menus are drawn inside a host scene. The flow shows `sidemenus/host`, then 
 `ParentPath` `LEFT_HAND_MAIN.SIDEMENU_HOST.SCREEN_DIVIDER.VB_LHM_SCALE.LM_MENU_HOST`, then its page inside the root.
 The catalog records this as `mounts`: for each scene, the host and the parent path.
 
+## Script limits and render targets
+
+RedM's `gameconfig.xml` ([citizenfx/fivem](https://github.com/citizenfx/fivem/blob/master/data/client_rdr/citizen/common/data/gameconfig.xml))
+sets how many UI resources one script may hold at a time: 14 `UI_FLOWBLOCK`, 10 `UI_STATE_MACHINE`, 4 `UI_SCENE` and
+128 `UI_OBJECT`. Hosting flow blocks from a script is therefore a supported pattern, with room for several at once.
+
+The same list names `UI_SCENE`, which scripts request directly with `UI_REQUEST_SCENE` (`0xB6857100F8FD433C`) and point
+at a render target with `UI_MOVIEVIEW_SET_RENDER_TARGET` (`0x51DE09A2196BD951`). Scenes with a
+`uiRenderTargetModelBehavior` are drawn onto a model's texture instead of the screen — the catalogue book, posters,
+newspapers. Their render targets are named in the data (`catalogue01x_ct` and others; the reference page marks these
+scenes). The arguments of these two natives are not documented yet.
+
+## Can new UI files be shipped?
+
+RedM loads non-binary `.ymt` in general ([issue #1702](https://github.com/citizenfx/fivem/issues/1702)), and codexcli now
+rebuilds UI files from XML. Whether files under `data/ui` are picked up from a resource's `stream/` folder is still to be
+tested in game. A test resource does both checks: a replaced `widgets/hud/tithing.ymt` with red icons, and a new flow block
+`luman_test_flow` requested by script.
+
 ## Reproducing the data
 
 See [`tools/README.md`](../tools/README.md). The short version:
