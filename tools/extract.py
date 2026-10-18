@@ -412,6 +412,12 @@ def elem(node, scene, depth=0, prefix=None):
     if prefix:
         d['pre'] = prefix
     d.update(lp(node))
+    st = STYLES.get(text(node, 'Style') or '')
+    if st:
+        for k in ('ho', 'verticalAlignment', 'widthContentMode', 'heightContentMode', 'width', 'height', 'leftMargin', 'rightMargin',
+                  'topMargin', 'bottomMargin', 'row', 'column', 'rowSpan', 'columnSpan', 'rows', 'columns', 'orientation', 'Stretch', 'cl', 'ct'):
+            if k in st and k not in d:
+                d[k] = st[k]
     for k in ('TextureDictionary', 'Texture', 'Color', 'Text', 'Style', 'Font', 'ParagraphStyle', 'HAlign', 'AutoSize', 'FillColor', 'TrackColor', 'MovieFileName'):
         v = text(node, k)
         if v:
@@ -505,6 +511,50 @@ def elem(node, scene, depth=0, prefix=None):
     return d
 
 
+# ---------- styles: visual properties and layout (alignment, sizes, grid rows / columns, cell) ----------
+VISUAL = ('Color', 'Font', 'ParagraphStyle', 'HAlign', 'VAlign', 'TextureDictionary', 'Texture', 'FillColor', 'TrackColor')
+VISUALV = ('FontSize', 'Alpha', 'Visible', 'Rotation')
+
+
+def style_props(props):
+    out = {}
+    w = ET.Element('W')
+    for it in props:
+        p = it.find('params')
+        if p is not None:
+            ET.SubElement(w, 'LayoutParams').append(p)
+        sp = it.find('specializedParams')
+        if sp is not None:
+            spw = ET.SubElement(w, 'SpecializedLayoutParams')
+            for si in sp:
+                wrap = ET.SubElement(spw, 'Item')
+                pp = ET.SubElement(wrap, 'params')
+                for ch in si:
+                    pp.append(ch)
+        for e in it.iter():
+            if e.tag in VISUAL and e.text and e.text.strip():
+                out.setdefault(e.tag, e.text.strip())
+            if e.tag in VISUALV and e.get('value') is not None:
+                out.setdefault(e.tag, e.get('value'))
+    for k, v in lp(w).items():
+        out.setdefault(k, v)
+    return out
+
+
+STYLES = {}
+for name, root in files.items():
+    if root.tag == 'rage__fwuiStyleCollection':
+        for it in root.find('Styles') or []:
+            STYLES[it.get('key')] = style_props(it.find('Properties') or [])
+    elif root.tag == 'rage__fwuiStyleCollectionRawContainer':
+        for it in root.find('StyleCollection') or []:
+            sid = text(it, 'ID')
+            variants = it.findall('StyleVariants/Item')
+            base = next((v for v in variants if v.find('DPIMode') is None), variants[0] if variants else None)
+            if sid and base is not None:
+                STYLES.setdefault(sid, style_props(base.find('Properties') or []))
+cat['styles'] = STYLES
+
 cat['ui'] = {}
 for name, root in files.items():
     if name.split('/')[0] in ('screens', 'widgets', 'startup_data') and root.tag.startswith('UI'):
@@ -565,21 +615,6 @@ colors = {}
 for m in re.finditer(r'<Col key="([^"]+)"\s+value="0x([0-9a-fA-F]{8})"', open(os.path.join(ROOT, 'colors.xml'), encoding='utf-8', errors='replace').read()):
     v = m.group(2).lower()  # 0xAABBGGRR
     colors[m.group(1)] = '#' + v[6:8] + v[4:6] + v[2:4] + v[0:2]
-styles = {}
-for name, root in files.items():
-    if root.tag != 'rage__fwuiStyleCollection':
-        continue
-    for it in root.find('Styles') or []:
-        s = {}
-        for pr in it.iter():
-            for k in ('Color', 'Font', 'ParagraphStyle'):
-                if pr.tag == k and pr.text:
-                    s[k] = pr.text
-            for k in ('FontSize', 'Alpha'):
-                if pr.tag == k and pr.get('value'):
-                    s[k] = pr.get('value')
-        styles[it.get('key')] = s
 cat['colors'] = colors
-cat['styles'] = styles
 json.dump(cat, open(OUT, 'w', encoding='utf-8'), indent=None, default=list)
-print('colors', len(colors), 'styles', len(styles))
+print('colors', len(colors), 'styles', len(STYLES))
