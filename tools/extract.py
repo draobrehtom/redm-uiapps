@@ -321,6 +321,16 @@ def lp(node):
     sp = node.find('SpecializedLayoutParams')
     if sp is not None:
         for it in sp.iter('params'):
+            # canvas children: position from the canvas origin; radial grid: sector of a child, angles of the grid
+            for k, kk in (('left', 'cl'), ('top', 'ct'), ('sector', 'sector'), ('startAngle', 'a0'), ('endAngle', 'a1')):
+                e = it.find(k)
+                if e is not None and e.get('value') is not None and num(e.get('value')) is not None:
+                    out[kk] = num(e.get('value'))
+            if text(it, 'radialFlowDirection'):
+                out['rdir'] = text(it, 'radialFlowDirection')
+            sec = it.find('sectors')
+            if sec is not None:
+                out['sectors'] = [[num(x.find('size').get('value')) if x.find('size') is not None else 1, text(x, 'type')] for x in sec]
             # a grid child's cell is in its specialized params
             for k in ('row', 'column', 'rowSpan', 'columnSpan'):
                 e = it.find(k)
