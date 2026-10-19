@@ -6,6 +6,7 @@ Scripts that turn the game's UI files into the reference pages in [`docs/`](../d
 |---|---|---|
 | `extract.py` | a folder of UI files converted to XML | `catalog.json`: apps, flows, entries, events, templates, DataBinding paths, HUD contexts, element trees of every screen |
 | `gen_docs.py` | `catalog.json` | `docs/apps.md`, `flows.md`, `events.md`, `templates.md`, `hud.md`, `datastore.md` |
+| `uiscene.py` | Python | scenes and flow blocks of your own as RBF XML (see [cookbook](../docs/cookbook.md#your-own-screen)) |
 | `labels.py` | the English language packs as XML, the UI XML, `catalog.json` | `catalog.json` with `labels`: the text of every label key the UI files use |
 
 Both use only the Python standard library.

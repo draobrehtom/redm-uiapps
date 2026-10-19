@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rage__fwuiFlowBlock>
+ <ID>match_hud_flow</ID>
+ <EntryPoints>
+  <Item>
+   <ID>default_entry_point</ID>
+   <Target>match_hud_scene_host</Target>
+  </Item>
+ </EntryPoints>
+ <ExitPoints>
+  <Item>
+   <ID>exit_to_game</ID>
+  </Item>
+ </ExitPoints>
+ <FlowRoot>
+  <ID>resource_load</ID>
+  <State type="rage__StateResourceLoader">
+   <Resources>
+    <Item type="rage__fwuiTextureDictionaryDependencyResource">
+     <Name>generic_textures</Name>
+    </Item>
+    <Item type="UIObjectSceneStreamingDependencyResource">
+     <Name>match_hud_scene</Name>
+    </Item>
+   </Resources>
+  </State>
+  <Children>
+   <Item>
+    <ID>match_hud_scene_host</ID>
+    <State type="StateUIObjectStreamedSceneHost">
+     <SceneName>match_hud_scene</SceneName>
+     <GCOnRemove value="True" />
+    </State>
+   </Item>
+  </Children>
+ </FlowRoot>
+</rage__fwuiFlowBlock>

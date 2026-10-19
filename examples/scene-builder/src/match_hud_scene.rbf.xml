@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UIMovieView>
+ <Name>MatchHudRoot</Name>
+ <MovieFileName>UIOBJECT_SCENE_GENERIC</MovieFileName>
+ <UseLayoutEngine value="True" />
+ <LayoutAttachmentOverride>safeframe_hud</LayoutAttachmentOverride>
+ <LayoutParams type="rage__LayoutParamInstanceAsset">
+  <params>
+   <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+   <verticalAlignment>VALIGN_STRETCH</verticalAlignment>
+   <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+   <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+  </params>
+ </LayoutParams>
+ <MemberBindings>
+  <Item>
+   <MemberName>Visible</MemberName>
+   <Setup>
+    <Path>ScriptDatastoreRoot.MatchHud.visible</Path>
+    <PathType>PATH_ABSOLUTE</PathType>
+   </Setup>
+  </Item>
+ </MemberBindings>
+ <Children>
+  <Item type="UIPanel">
+   <Name>PAN_Score</Name>
+   <UseLayoutEngine value="True" />
+   <LayoutParams type="rage__LayoutParamInstanceAsset">
+    <params>
+     <horizontalAlignment>HALIGN_CENTER</horizontalAlignment>
+     <verticalAlignment>VALIGN_TOP</verticalAlignment>
+     <widthContentMode>CONTENT_MODE_RAW</widthContentMode>
+     <heightContentMode>CONTENT_MODE_RAW</heightContentMode>
+     <width value="360" />
+     <height value="70" />
+    </params>
+   </LayoutParams>
+   <Children>
+    <Item type="UIImage">
+     <Name>IMG_ScoreBg</Name>
+     <TextureDictionary>generic_textures</TextureDictionary>
+     <Texture>INKROLLER_1A</Texture>
+     <Style>INK_BACKGROUND_COLOR</Style>
+     <UseLayoutEngine value="True" />
+     <LayoutParams type="rage__LayoutParamInstanceAsset">
+      <params>
+       <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+       <verticalAlignment>VALIGN_STRETCH</verticalAlignment>
+       <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+       <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+      </params>
+     </LayoutParams>
+     <SpecializedLayoutParams>
+      <Item type="rage__SpecializedParamInstanceAsset">
+       <params type="rage__fwuiStretchParams">
+        <Stretch>FILL</Stretch>
+       </params>
+      </Item>
+     </SpecializedLayoutParams>
+    </Item>
+    <Item type="UIText">
+     <Name>TXT_Blue</Name>
+     <UseLayoutEngine value="True" />
+     <LayoutParams type="rage__LayoutParamInstanceAsset">
+      <params>
+       <horizontalAlignment>HALIGN_LEFT</horizontalAlignment>
+       <verticalAlignment>VALIGN_TOP</verticalAlignment>
+       <widthContentMode>CONTENT_MODE_RAW</widthContentMode>
+       <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+       <width value="80" />
+       <leftMargin value="20" />
+       <topMargin value="8" />
+      </params>
+     </LayoutParams>
+     <Style>HUD_LOCATION_TEXT</Style>
+     <HAlign>CENTER</HAlign>
+     <Color>COLOR_BLUE</Color>
+     <MemberBindings>
+      <Item>
+       <MemberName>RawText</MemberName>
+       <Setup>
+        <Path>ScriptDatastoreRoot.MatchHud.blue</Path>
+        <PathType>PATH_ABSOLUTE</PathType>
+       </Setup>
+      </Item>
+     </MemberBindings>
+    </Item>
+    <Item type="UIText">
+     <Name>TXT_Timer</Name>
+     <UseLayoutEngine value="True" />
+     <LayoutParams type="rage__LayoutParamInstanceAsset">
+      <params>
+       <horizontalAlignment>HALIGN_LEFT</horizontalAlignment>
+       <verticalAlignment>VALIGN_TOP</verticalAlignment>
+       <widthContentMode>CONTENT_MODE_RAW</widthContentMode>
+       <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+       <width value="140" />
+       <leftMargin value="110" />
+       <topMargin value="8" />
+      </params>
+     </LayoutParams>
+     <Style>HUD_LOCATION_TEXT</Style>
+     <HAlign>CENTER</HAlign>
+     <MemberBindings>
+      <Item>
+       <MemberName>RawText</MemberName>
+       <Setup>
+        <Path>ScriptDatastoreRoot.MatchHud.timer</Path>
+        <PathType>PATH_ABSOLUTE</PathType>
+       </Setup>
+      </Item>
+      <Item>
+       <MemberName>Color</MemberName>
+       <Setup>
+        <Path>ScriptDatastoreRoot.MatchHud.timerColor</Path>
+        <PathType>PATH_ABSOLUTE</PathType>
+       </Setup>
+       <Converter type="rage__fwuiIntHashStringDictionaryConversion">
+        <Default>COLOR_WHITE</Default>
+        <Dictionary>
+         <Item key="0">COLOR_WHITE</Item>
+         <Item key="1">COLOR_BLUE</Item>
+         <Item key="2">COLOR_YELLOW</Item>
+         <Item key="3">COLOR_RED</Item>
+         <Item key="4">COLOR_GREY</Item>
+         <Item key="5">COLOR_GOLD</Item>
+         <Item key="6">COLOR_GREEN</Item>
+         <Item key="7">COLOR_GREYMID</Item>
+         <Item key="8">COLOR_BLACK</Item>
+        </Dictionary>
+       </Converter>
+      </Item>
+     </MemberBindings>
+    </Item>
+    <Item type="UIText">
+     <Name>TXT_Red</Name>
+     <UseLayoutEngine value="True" />
+     <LayoutParams type="rage__LayoutParamInstanceAsset">
+      <params>
+       <horizontalAlignment>HALIGN_LEFT</horizontalAlignment>
+       <verticalAlignment>VALIGN_TOP</verticalAlignment>
+       <widthContentMode>CONTENT_MODE_RAW</widthContentMode>
+       <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+       <width value="80" />
+       <leftMargin value="260" />
+       <topMargin value="8" />
+      </params>
+     </LayoutParams>
+     <Style>HUD_LOCATION_TEXT</Style>
+     <HAlign>CENTER</HAlign>
+     <Color>COLOR_RED</Color>
+     <MemberBindings>
+      <Item>
+       <MemberName>RawText</MemberName>
+       <Setup>
+        <Path>ScriptDatastoreRoot.MatchHud.red</Path>
+        <PathType>PATH_ABSOLUTE</PathType>
+       </Setup>
+      </Item>
+     </MemberBindings>
+    </Item>
+   </Children>
+  </Item>
+  <Item type="UIStackPanel">
+   <Name>STACK_Objective</Name>
+   <UseLayoutEngine value="True" />
+   <LayoutParams type="rage__LayoutParamInstanceAsset">
+    <params>
+     <horizontalAlignment>HALIGN_CENTER</horizontalAlignment>
+     <verticalAlignment>VALIGN_TOP</verticalAlignment>
+     <widthContentMode>CONTENT_MODE_RAW</widthContentMode>
+     <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+     <width value="400" />
+     <topMargin value="80" />
+    </params>
+   </LayoutParams>
+   <SpecializedLayoutParams>
+    <Item type="rage__SpecializedParamInstanceAsset">
+     <params type="rage__StackPanelParams">
+      <orientation>PANEL_ORIENT_VERTICAL</orientation>
+     </params>
+    </Item>
+   </SpecializedLayoutParams>
+   <MemberBindings>
+    <Item>
+     <MemberName>Visible</MemberName>
+     <Setup>
+      <Path>ScriptDatastoreRoot.MatchHud.objectiveVisible</Path>
+      <PathType>PATH_ABSOLUTE</PathType>
+     </Setup>
+    </Item>
+   </MemberBindings>
+   <Children>
+    <Item type="UIText">
+     <Name>TXT_Objective</Name>
+     <UseLayoutEngine value="True" />
+     <LayoutParams type="rage__LayoutParamInstanceAsset">
+      <params>
+       <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+       <verticalAlignment>VALIGN_TOP</verticalAlignment>
+       <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+       <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+      </params>
+     </LayoutParams>
+     <Style>HUD_TEXT_BODY</Style>
+     <HAlign>CENTER</HAlign>
+     <MemberBindings>
+      <Item>
+       <MemberName>RawText</MemberName>
+       <Setup>
+        <Path>ScriptDatastoreRoot.MatchHud.objective</Path>
+        <PathType>PATH_ABSOLUTE</PathType>
+       </Setup>
+      </Item>
+     </MemberBindings>
+    </Item>
+    <Item type="UIMeter">
+     <Name>METER_Capture</Name>
+     <UseLayoutEngine value="True" />
+     <LayoutParams type="rage__LayoutParamInstanceAsset">
+      <params>
+       <horizontalAlignment>HALIGN_CENTER</horizontalAlignment>
+       <verticalAlignment>VALIGN_TOP</verticalAlignment>
+       <widthContentMode>CONTENT_MODE_RAW</widthContentMode>
+       <heightContentMode>CONTENT_MODE_RAW</heightContentMode>
+       <width value="300" />
+       <height value="10" />
+       <topMargin value="6" />
+      </params>
+     </LayoutParams>
+     <BehaviorSet>
+      <Behaviors>
+       <Item type="uiDisplayObjectBehavior">
+        <SymbolName>FCMeter</SymbolName>
+       </Item>
+      </Behaviors>
+     </BehaviorSet>
+     <TrackColor>COLOR_GREYDARK</TrackColor>
+     <FillColor>COLOR_GOLD</FillColor>
+     <Minimum value="0" />
+     <Maximum value="1" />
+     <Value value="0" />
+     <SFData>
+      <Item type="SF_String">
+       <Name>trackDictionary</Name>
+       <Value>generic_textures</Value>
+      </Item>
+      <Item type="SF_String">
+       <Name>trackTexture</Name>
+       <Value>MENU_BAR</Value>
+      </Item>
+      <Item type="SF_String">
+       <Name>fillDictionary</Name>
+       <Value>generic_textures</Value>
+      </Item>
+      <Item type="SF_String">
+       <Name>fillTexture</Name>
+       <Value>MENU_BAR</Value>
+      </Item>
+     </SFData>
+     <MemberBindings>
+      <Item>
+       <MemberName>Value</MemberName>
+       <Setup>
+        <Path>ScriptDatastoreRoot.MatchHud.capture</Path>
+        <PathType>PATH_ABSOLUTE</PathType>
+       </Setup>
+      </Item>
+     </MemberBindings>
+    </Item>
+   </Children>
+  </Item>
+  <Item type="UIStackPanel">
+   <Name>STACK_Feed</Name>
+   <UseLayoutEngine value="True" />
+   <LayoutParams type="rage__LayoutParamInstanceAsset">
+    <params>
+     <horizontalAlignment>HALIGN_RIGHT</horizontalAlignment>
+     <verticalAlignment>VALIGN_TOP</verticalAlignment>
+     <widthContentMode>CONTENT_MODE_RAW</widthContentMode>
+     <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+     <width value="500" />
+    </params>
+   </LayoutParams>
+   <SpecializedLayoutParams>
+    <Item type="rage__SpecializedParamInstanceAsset">
+     <params type="rage__StackPanelParams">
+      <orientation>PANEL_ORIENT_VERTICAL</orientation>
+     </params>
+    </Item>
+   </SpecializedLayoutParams>
+   <Children>
+    <Item type="UIText">
+     <Name>TXT_Feed1</Name>
+     <UseLayoutEngine value="True" />
+     <LayoutParams type="rage__LayoutParamInstanceAsset">
+      <params>
+       <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+       <verticalAlignment>VALIGN_TOP</verticalAlignment>
+       <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+       <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+      </params>
+     </LayoutParams>
+     <Style>HUD_TEXT_BODY</Style>
+     <HAlign>RIGHT</HAlign>
+     <MemberBindings>
+      <Item>
+       <MemberName>RawText</MemberName>
+       <Setup>
+        <Path>ScriptDatastoreRoot.MatchHud.feed1</Path>
+        <PathType>PATH_ABSOLUTE</PathType>
+       </Setup>
+      </Item>
+      <Item>
+       <MemberName>Visible</MemberName>
+       <Setup>
+        <Path>ScriptDatastoreRoot.MatchHud.feed1Visible</Path>
+        <PathType>PATH_ABSOLUTE</PathType>
+       </Setup>
+      </Item>
+     </MemberBindings>
+    </Item>
+    <Item type="UIText">
+     <Name>TXT_Feed2</Name>
+     <UseLayoutEngine value="True" />
+     <LayoutParams type="rage__LayoutParamInstanceAsset">
+      <params>
+       <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+       <verticalAlignment>VALIGN_TOP</verticalAlignment>
+       <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+       <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+      </params>
+     </LayoutParams>
+     <Style>HUD_TEXT_BODY</Style>
+     <HAlign>RIGHT</HAlign>
+     <MemberBindings>
+      <Item>
+       <MemberName>RawText</MemberName>
+       <Setup>
+        <Path>ScriptDatastoreRoot.MatchHud.feed2</Path>
+        <PathType>PATH_ABSOLUTE</PathType>
+       </Setup>
+      </Item>
+      <Item>
+       <MemberName>Visible</MemberName>
+       <Setup>
+        <Path>ScriptDatastoreRoot.MatchHud.feed2Visible</Path>
+        <PathType>PATH_ABSOLUTE</PathType>
+       </Setup>
+      </Item>
+     </MemberBindings>
+    </Item>
+    <Item type="UIText">
+     <Name>TXT_Feed3</Name>
+     <UseLayoutEngine value="True" />
+     <LayoutParams type="rage__LayoutParamInstanceAsset">
+      <params>
+       <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+       <verticalAlignment>VALIGN_TOP</verticalAlignment>
+       <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+       <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+      </params>
+     </LayoutParams>
+     <Style>HUD_TEXT_BODY</Style>
+     <HAlign>RIGHT</HAlign>
+     <MemberBindings>
+      <Item>
+       <MemberName>RawText</MemberName>
+       <Setup>
+        <Path>ScriptDatastoreRoot.MatchHud.feed3</Path>
+        <PathType>PATH_ABSOLUTE</PathType>
+       </Setup>
+      </Item>
+      <Item>
+       <MemberName>Visible</MemberName>
+       <Setup>
+        <Path>ScriptDatastoreRoot.MatchHud.feed3Visible</Path>
+        <PathType>PATH_ABSOLUTE</PathType>
+       </Setup>
+      </Item>
+     </MemberBindings>
+    </Item>
+    <Item type="UIText">
+     <Name>TXT_Feed4</Name>
+     <UseLayoutEngine value="True" />
+     <LayoutParams type="rage__LayoutParamInstanceAsset">
+      <params>
+       <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+       <verticalAlignment>VALIGN_TOP</verticalAlignment>
+       <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+       <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+      </params>
+     </LayoutParams>
+     <Style>HUD_TEXT_BODY</Style>
+     <HAlign>RIGHT</HAlign>
+     <MemberBindings>
+      <Item>
+       <MemberName>RawText</MemberName>
+       <Setup>
+        <Path>ScriptDatastoreRoot.MatchHud.feed4</Path>
+        <PathType>PATH_ABSOLUTE</PathType>
+       </Setup>
+      </Item>
+      <Item>
+       <MemberName>Visible</MemberName>
+       <Setup>
+        <Path>ScriptDatastoreRoot.MatchHud.feed4Visible</Path>
+        <PathType>PATH_ABSOLUTE</PathType>
+       </Setup>
+      </Item>
+     </MemberBindings>
+    </Item>
+   </Children>
+  </Item>
+ </Children>
+</UIMovieView>

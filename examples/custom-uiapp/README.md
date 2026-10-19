@@ -3,7 +3,6 @@
 A card drawn by the game's own UI, from a scene and a flow block that do not exist in RDR2. Both are streamed from
 this resource. Copy the folder into `resources/`, `ensure custom-uiapp`, then `/myapp` or `/myapp any text`.
 
-![preview](preview.png)
 
 ## Why it works
 

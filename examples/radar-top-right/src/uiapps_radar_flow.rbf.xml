@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rage__fwuiFlowBlock>
+ <ID>uiapps_radar_flow</ID>
+ <EntryPoints>
+  <Item>
+   <ID>default_entry_point</ID>
+   <Target>uiapps_radar_main_scene</Target>
+  </Item>
+ </EntryPoints>
+ <ExitPoints>
+  <Item>
+   <ID>exit_to_game</ID>
+  </Item>
+ </ExitPoints>
+ <FlowRoot>
+  <ID>resource_load</ID>
+  <State type="rage__StateResourceLoader">
+   <Resources>
+    <Item type="rage__fwuiTextureDictionaryDependencyResource">
+     <Name>hud_textures</Name>
+    </Item>
+    <Item type="rage__fwuiTextureDictionaryDependencyResource">
+     <Name>rpg_textures</Name>
+    </Item>
+    <Item type="rage__fwuiTextureDictionaryDependencyResource">
+     <Name>rpg_core_health</Name>
+    </Item>
+    <Item type="rage__fwuiTextureDictionaryDependencyResource">
+     <Name>rpg_core_deadeye</Name>
+    </Item>
+    <Item type="rage__fwuiTextureDictionaryDependencyResource">
+     <Name>rpg_core_stamina</Name>
+    </Item>
+    <Item type="rage__fwuiTextureDictionaryDependencyResource">
+     <Name>rpg_meter</Name>
+    </Item>
+    <Item type="rage__fwuiTextureDictionaryDependencyResource">
+     <Name>rpg_meter_track</Name>
+    </Item>
+    <Item type="rage__fwuiTextureDictionaryDependencyResource">
+     <Name>blips</Name>
+    </Item>
+    <Item type="rage__fwuiTextureDictionaryDependencyResource">
+     <Name>blips_tu</Name>
+    </Item>
+    <Item type="UITemplateStreamingDependencyResource">
+     <Name>hud/minimap</Name>
+     <Template>
+      <Id>Minimap</Id>
+     </Template>
+    </Item>
+    <Item type="UITemplateStreamingDependencyResource">
+     <Name>hud/minimap_compass_detail</Name>
+     <Template>
+      <Id>MinimapCompassDetail</Id>
+     </Template>
+    </Item>
+    <Item type="UITemplateStreamingDependencyResource">
+     <Name>hud/attribute_background_template</Name>
+     <Template>
+      <Id>attribute_background_template</Id>
+      <PropertyKeys>
+       <Item key="SetRotation">
+        <Target>
+         <Path />
+         <PathType>PATH_LOCAL</PathType>
+        </Target>
+        <Property>Rotation</Property>
+       </Item>
+      </PropertyKeys>
+     </Template>
+    </Item>
+    <Item type="UITemplateStreamingDependencyResource">
+     <Name>hud/attribute_core_template</Name>
+     <Template>
+      <Id>attribute_core_template</Id>
+      <PropertyKeys>
+       <Item key="SetCoreStatesTextureDictionary">
+        <Target>
+         <Path>PAN_ItemsContainer.PAN_StandardItemsContainer.IMG_CoreState</Path>
+         <PathType>PATH_LOCAL</PathType>
+        </Target>
+        <Property>TextureDictionary</Property>
+       </Item>
+       <Item key="SetItemPreviewCoreStatesTextureDictionary">
+        <Target>
+         <Path>PAN_ItemsContainer.PAN_StandardItemsContainer.IMG_ItemPreviewCoreState</Path>
+         <PathType>PATH_LOCAL</PathType>
+        </Target>
+        <Property>TextureDictionary</Property>
+       </Item>
+       <Item key="SetCoreOverpoweredVfxAssetTextureDictionary">
+        <Target>
+         <Path>PAN_ItemsContainer.PAN_StandardItemsContainer.PAN_Overpowered.IMG_OverpoweredIcon</Path>
+         <PathType>PATH_LOCAL</PathType>
+        </Target>
+        <Property>TextureDictionary</Property>
+       </Item>
+      </PropertyKeys>
+     </Template>
+    </Item>
+    <Item type="UITemplateStreamingDependencyResource">
+     <Name>hud/attribute_meter_template</Name>
+     <Template>
+      <Id>attribute_meter_template</Id>
+      <InsertionPoints>
+       <Item key="MeterObject">
+        <Path>PAN_Container.PAN_MeterContainer.IMG_Meter</Path>
+        <PathType>PATH_LOCAL</PathType>
+       </Item>
+      </InsertionPoints>
+     </Template>
+    </Item>
+    <Item type="UITemplateStreamingDependencyResource">
+     <Name>hud/attribute_status_meters</Name>
+     <Template>
+      <Id>attribute_status_meters</Id>
+     </Template>
+    </Item>
+    <Item type="UIObjectSceneStreamingDependencyResource">
+     <Name>uiapps_radar_scene</Name>
+    </Item>
+   </Resources>
+  </State>
+  <Children>
+   <Item>
+    <ID>uiapps_radar_main_scene</ID>
+    <State type="StateUIObjectStreamedSceneHost">
+     <SceneName>uiapps_radar_scene</SceneName>
+     <GCOnRemove value="True" />
+    </State>
+   </Item>
+  </Children>
+ </FlowRoot>
+</rage__fwuiFlowBlock>

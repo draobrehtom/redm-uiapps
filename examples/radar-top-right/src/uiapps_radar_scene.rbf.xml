@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UIMovieView>
+ <Name>RadarCopyRoot</Name>
+ <MovieFileName>UIOBJECT_SCENE_GENERIC</MovieFileName>
+ <UseLayoutEngine value="True" />
+ <LayoutAttachmentOverride>safeframe_hud</LayoutAttachmentOverride>
+ <LayoutParams type="rage__LayoutParamInstanceAsset">
+  <params>
+   <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+   <verticalAlignment>VALIGN_STRETCH</verticalAlignment>
+   <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+   <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+  </params>
+ </LayoutParams>
+ <Children>
+  <Item type="UIViewbox">
+   <Name>VB_RadarCopy</Name>
+   <UseLayoutEngine value="True" />
+   <LayoutParams type="rage__LayoutParamInstanceAsset">
+    <params>
+     <horizontalAlignment>HALIGN_RIGHT</horizontalAlignment>
+     <verticalAlignment>VALIGN_TOP</verticalAlignment>
+     <widthContentMode>CONTENT_MODE_RAW</widthContentMode>
+     <heightContentMode>CONTENT_MODE_RAW</heightContentMode>
+     <width value="432" />
+     <height value="397" />
+    </params>
+   </LayoutParams>
+   <MemberBindings>
+    <Item>
+     <MemberName>Visible</MemberName>
+     <Setup>
+      <Path>ScriptDatastoreRoot.RadarCopy.visible</Path>
+      <PathType>PATH_ABSOLUTE</PathType>
+     </Setup>
+    </Item>
+   </MemberBindings>
+   <Children>
+    <Item type="UIPanel">
+     <Name>PAN_RadarRpgContainer</Name>
+     <UseLayoutEngine value="True" />
+     <LayoutParams type="rage__LayoutParamInstanceAsset">
+      <params>
+       <horizontalAlignment>HALIGN_RIGHT</horizontalAlignment>
+       <verticalAlignment>VALIGN_TOP</verticalAlignment>
+       <widthContentMode>CONTENT_MODE_RAW</widthContentMode>
+       <heightContentMode>CONTENT_MODE_RAW</heightContentMode>
+       <width value="432" />
+       <height value="397" />
+      </params>
+     </LayoutParams>
+     <Children>
+      <Item type="UIGrid">
+       <Name>GRD_MapCornerGrid</Name>
+       <UseLayoutEngine value="True" />
+       <LayoutParams type="rage__LayoutParamInstanceAsset">
+        <params>
+         <horizontalAlignment>HALIGN_RIGHT</horizontalAlignment>
+         <verticalAlignment>VALIGN_TOP</verticalAlignment>
+         <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+         <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+        </params>
+       </LayoutParams>
+       <SpecializedLayoutParams>
+        <Item type="rage__SpecializedParamInstanceAsset">
+         <params type="rage__GridParams">
+          <columns>
+           <Item>
+            <type>SIZING_TYPE_AUTO</type>
+           </Item>
+          </columns>
+          <rows>
+           <Item>
+            <size value="1" />
+            <type>SIZING_TYPE_STAR</type>
+           </Item>
+           <Item>
+            <type>SIZING_TYPE_AUTO</type>
+           </Item>
+           <Item>
+            <type>SIZING_TYPE_AUTO</type>
+           </Item>
+          </rows>
+         </params>
+        </Item>
+       </SpecializedLayoutParams>
+       <Instancing>
+        <Item type="UITemplateInstancingItem">
+         <Type>attribute_status_meters</Type>
+        </Item>
+       </Instancing>
+       <Children>
+        <Item type="UIPanel">
+         <Name>PAN_RadarCopyMinimap</Name>
+         <UseLayoutEngine value="True" />
+         <LayoutParams type="rage__LayoutParamInstanceAsset">
+          <params>
+           <horizontalAlignment>HALIGN_CENTER</horizontalAlignment>
+           <verticalAlignment>VALIGN_TOP</verticalAlignment>
+           <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+           <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+          </params>
+         </LayoutParams>
+         <SpecializedLayoutParams>
+          <Item type="rage__SpecializedParamInstanceAsset">
+           <params type="rage__GridChildParams">
+            <row value="1" />
+            <column value="0" />
+           </params>
+          </Item>
+         </SpecializedLayoutParams>
+         <BehaviorSet>
+          <Behaviors>
+           <Item type="uiDisplayObjectBehavior">
+            <SymbolName>fcContainer</SymbolName>
+           </Item>
+          </Behaviors>
+         </BehaviorSet>
+         <Children>
+          <Item type="UIMapView">
+           <Name>MINIMAP_VIEW</Name>
+           <UseLayoutEngine value="True" />
+           <UsesCurrentLocation value="True" />
+           <MapFlags>MAP_CIRCLE MAP_AUTO_ZOOM MAP_EDGE_CLAMPING MAP_THREAT_INDICATION</MapFlags>
+           <TypeKey>Radar</TypeKey>
+           <BackgroundAlpha value="0.4" />
+           <BlipSizeRatio value="8" />
+           <BlipSizeRatioHD value="5" />
+           <MaskTextureDictionary>HUD_TEXTURES</MaskTextureDictionary>
+           <MaskTexture>MAP_INNER_CIRCLE_MAP</MaskTexture>
+           <ImagePath>
+            <Path>MAP_VIEW</Path>
+            <PathType>PATH_LOCAL</PathType>
+           </ImagePath>
+           <GutterPath>
+            <Path>ROUND_GUTTER</Path>
+            <PathType>PATH_LOCAL</PathType>
+           </GutterPath>
+           <DistanceTextPath>
+            <Path>^.GPS_DISTANCE_TEXT</Path>
+            <PathType>PATH_LOCAL</PathType>
+           </DistanceTextPath>
+           <MemberBindings>
+            <Item>
+             <MemberName>RadarMode</MemberName>
+            </Item>
+            <Item>
+             <MemberName>MapRotation</MemberName>
+            </Item>
+            <Item>
+             <MemberName>FilterId</MemberName>
+             <Setup>
+              <Path>^.RadarMode</Path>
+              <PathType>PATH_LOCAL</PathType>
+             </Setup>
+             <Converter type="rage__fwuiIntHashStringDictionaryConversion">
+              <ApplyDefault value="True" />
+              <Default />
+              <Dictionary>
+               <Item key="0">MinimalRadarOnly</Item>
+               <Item key="3">MinimalRadarOnly</Item>
+              </Dictionary>
+             </Converter>
+            </Item>
+            <Item>
+             <MemberName>Style</MemberName>
+             <Setup>
+              <Path>^.RadarMode</Path>
+              <PathType>PATH_LOCAL</PathType>
+             </Setup>
+             <Converter type="rage__fwuiIntHashStringDictionaryConversion">
+              <Dictionary>
+               <Item key="1">ACTUAL_RADAR_SIZE_DEFAULT</Item>
+               <Item key="2">ACTUAL_RADAR_SIZE_EXPANDED</Item>
+               <Item key="3">ACTUAL_RADAR_SIZE_MINIMAL</Item>
+              </Dictionary>
+             </Converter>
+            </Item>
+           </MemberBindings>
+           <Children>
+            <Item type="UIPanel">
+             <Name>ROUND_GUTTER</Name>
+             <UseLayoutEngine value="True" />
+             <MemberBindings>
+              <Item>
+               <MemberName>Style</MemberName>
+               <Setup>
+                <Path>^.^.RadarMode</Path>
+                <PathType>PATH_LOCAL</PathType>
+               </Setup>
+               <Converter type="rage__fwuiIntHashStringDictionaryConversion">
+                <Dictionary>
+                 <Item key="1">GUTTER_SIZE_DEFAULT</Item>
+                 <Item key="2">GUTTER_SIZE_EXPANDED</Item>
+                 <Item key="3">GUTTER_SIZE_COMPASS</Item>
+                </Dictionary>
+               </Converter>
+              </Item>
+             </MemberBindings>
+             <Children>
+              <Item type="UICircle">
+               <Name>FLASH_CIRCLE</Name>
+               <Alpha value="0" />
+               <Depth value="3" />
+               <UseLayoutEngine value="True" />
+               <LayoutParams type="rage__LayoutParamInstanceAsset">
+                <params>
+                 <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+                 <verticalAlignment>VALIGN_STRETCH</verticalAlignment>
+                 <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+                 <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+                </params>
+               </LayoutParams>
+               <BehaviorSet>
+                <Behaviors>
+                 <Item type="uiAnimationDataBindingTriggerBehavior">
+                  <Name>radar_anim</Name>
+                  <Animation>Radar_Mode_Change</Animation>
+                  <BindingSetup>
+                   <Path>GenericData.LastRadarModeSelected</Path>
+                   <PathType>PATH_ABSOLUTE</PathType>
+                  </BindingSetup>
+                 </Item>
+                </Behaviors>
+               </BehaviorSet>
+              </Item>
+             </Children>
+            </Item>
+            <Item type="UIImage">
+             <Name>MAP_VIEW</Name>
+             <Enabled value="False" />
+             <Visible value="False" />
+             <HoldTextureReferences value="False" />
+             <Depth value="1" />
+             <UseLayoutEngine value="True" />
+             <LayoutParams type="rage__LayoutParamInstanceAsset">
+              <params>
+               <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+               <verticalAlignment>VALIGN_STRETCH</verticalAlignment>
+               <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+               <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+              </params>
+             </LayoutParams>
+             <SpecializedLayoutParams>
+              <Item type="rage__SpecializedParamInstanceAsset">
+               <params type="rage__fwuiStretchParams">
+                <Stretch>FILL</Stretch>
+               </params>
+              </Item>
+             </SpecializedLayoutParams>
+            </Item>
+            <Item type="UIImage">
+             <Name>MAP_BACKGROUND</Name>
+             <UseLayoutEngine value="True" />
+             <LayoutParams type="rage__LayoutParamInstanceAsset">
+              <params>
+               <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+               <verticalAlignment>VALIGN_STRETCH</verticalAlignment>
+               <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+               <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+              </params>
+             </LayoutParams>
+             <SpecializedLayoutParams>
+              <Item type="rage__SpecializedParamInstanceAsset">
+               <params type="rage__fwuiStretchParams">
+                <Stretch>FILL</Stretch>
+               </params>
+              </Item>
+             </SpecializedLayoutParams>
+             <TextureDictionary>HUD_TEXTURES</TextureDictionary>
+             <Visible value="True" />
+             <Depth value="0" />
+             <Alpha value="70" />
+             <Color>COLOR_BLACK</Color>
+             <MemberBindings>
+              <Item>
+               <MemberName>Style</MemberName>
+               <Setup>
+                <Path>^.^.RadarMode</Path>
+                <PathType>PATH_LOCAL</PathType>
+               </Setup>
+               <Converter type="rage__fwuiIntHashStringDictionaryConversion">
+                <Dictionary>
+                 <Item key="1">RADAR_BACKGROUND_MARGINS_DEFAULT</Item>
+                 <Item key="2">RADAR_BACKGROUND_MARGINS_EXPANDED</Item>
+                 <Item key="3">RADAR_BACKGROUND_MARGINS_MINIMAL</Item>
+                </Dictionary>
+               </Converter>
+              </Item>
+              <Item>
+               <MemberName>Texture</MemberName>
+               <Setup>
+                <Path>^.^.RadarMode</Path>
+                <PathType>PATH_LOCAL</PathType>
+               </Setup>
+               <Converter type="rage__fwuiIntHashStringDictionaryConversion">
+                <ApplyDefault value="True" />
+                <Default>RADAR_REGULAR_INK</Default>
+                <Dictionary>
+                 <Item key="1">RADAR_REGULAR_INK</Item>
+                 <Item key="2">RADAR_EXPANDED_INK</Item>
+                 <Item key="3">RADAR_COMPASS_INK</Item>
+                </Dictionary>
+               </Converter>
+              </Item>
+             </MemberBindings>
+            </Item>
+            <Item type="UIPanel">
+             <Name>PNL_NorthernArrow</Name>
+             <Depth value="2" />
+             <UseLayoutEngine value="True" />
+             <LayoutParams type="rage__LayoutParamInstanceAsset">
+              <params>
+               <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+               <verticalAlignment>VALIGN_STRETCH</verticalAlignment>
+               <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+               <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+              </params>
+             </LayoutParams>
+             <BehaviorSet>
+              <Behaviors>
+               <Item type="uiDisplayObjectBehavior">
+                <SymbolName>fcContainer</SymbolName>
+               </Item>
+              </Behaviors>
+             </BehaviorSet>
+             <MemberBindings>
+              <Item>
+               <MemberName>Rotation</MemberName>
+               <Setup>
+                <Path>^.^.MapRotation</Path>
+                <PathType>PATH_LOCAL</PathType>
+               </Setup>
+              </Item>
+             </MemberBindings>
+             <Children>
+              <Item type="UIImage">
+               <Name>IMG_NorthernArrow</Name>
+               <TextureDictionary>HUD_TEXTURES</TextureDictionary>
+               <Texture>MAP_INNER_RING</Texture>
+               <UseLayoutEngine value="True" />
+               <LayoutParams type="rage__LayoutParamInstanceAsset">
+                <params>
+                 <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+                 <verticalAlignment>VALIGN_STRETCH</verticalAlignment>
+                 <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+                 <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+                </params>
+               </LayoutParams>
+               <SpecializedLayoutParams>
+                <Item type="rage__SpecializedParamInstanceAsset">
+                 <params type="rage__fwuiStretchParams">
+                  <Stretch>UNIFORM</Stretch>
+                 </params>
+                </Item>
+               </SpecializedLayoutParams>
+              </Item>
+             </Children>
+             <Instancing>
+              <Item type="UITemplateInstancingItem">
+               <Type>MinimapCompassDetail</Type>
+              </Item>
+             </Instancing>
+            </Item>
+            <Item type="UIPanel">
+             <Name>PNL_GpsArrow</Name>
+             <Depth value="2" />
+             <UseLayoutEngine value="True" />
+             <LayoutParams type="rage__LayoutParamInstanceAsset">
+              <params>
+               <horizontalAlignment>HALIGN_STRETCH</horizontalAlignment>
+               <verticalAlignment>VALIGN_STRETCH</verticalAlignment>
+               <widthContentMode>CONTENT_MODE_AUTO</widthContentMode>
+               <heightContentMode>CONTENT_MODE_AUTO</heightContentMode>
+              </params>
+             </LayoutParams>
+             <MemberBindings>
+              <Item>
+               <MemberName>Visible</MemberName>
+               <Setup>
+                <Path>playerInfo.objective.gpsEnabled</Path>
+                <PathType>PATH_ABSOLUTE</PathType>
+               </Setup>
+              </Item>
+              <Item>
+               <MemberName>Rotation</MemberName>
+               <Setup>
+                <Path>playerInfo.objective.gpsDirection</Path>
+                <PathType>PATH_ABSOLUTE</PathType>
+               </Setup>
+              </Item>
+             </MemberBindings>
+             <BehaviorSet>
+              <Behaviors>
+               <Item type="uiDisplayObjectBehavior">
+                <SymbolName>fcContainer</SymbolName>
+               </Item>
+              </Behaviors>
+             </BehaviorSet>
+             <Children>
+              <Item type="UIImage">
+               <Name>IMG_Arrow</Name>
+               <TextureDictionary>HUD_TEXTURES</TextureDictionary>
+               <Texture>COMPASS_ARROW</Texture>
+               <UseLayoutEngine value="True" />
+               <LayoutParams type="rage__LayoutParamInstanceAsset">
+                <params>
+                 <horizontalAlignment>HALIGN_CENTER</horizontalAlignment>
+                 <verticalAlignment>VALIGN_TOP</verticalAlignment>
+                 <widthContentMode>CONTENT_MODE_RAW</widthContentMode>
+                 <heightContentMode>CONTENT_MODE_RAW</heightContentMode>
+                </params>
+               </LayoutParams>
+               <SpecializedLayoutParams>
+                <Item type="rage__SpecializedParamInstanceAsset">
+                 <params type="rage__fwuiStretchParams">
+                  <Stretch>FILL</Stretch>
+                 </params>
+                </Item>
+               </SpecializedLayoutParams>
+               <MemberBindings>
+                <Item>
+                 <MemberName>Style</MemberName>
+                 <Setup>
+                  <Path>@.MINIMAP_VIEW.RadarMode</Path>
+                  <PathType>PATH_LOCAL</PathType>
+                 </Setup>
+                 <Converter type="rage__fwuiIntHashStringDictionaryConversion">
+                  <Dictionary>
+                   <Item key="1">ARROW_SIZE_DEFAULT</Item>
+                   <Item key="2">ARROW_SIZE_EXPANDED</Item>
+                   <Item key="3">ARROW_SIZE_COMPASS</Item>
+                  </Dictionary>
+                 </Converter>
+                </Item>
+               </MemberBindings>
+               <BehaviorSet>
+                <Behaviors>
+                 <Item type="uiBehaviorDataBindingBehavior">
+                  <MemberBindingLinks>
+                   <Item>
+                    <MemberPath>
+                     <Path>colorBehavior.Color</Path>
+                     <PathType>PATH_LOCAL</PathType>
+                    </MemberPath>
+                    <BindingSetup>
+                     <Path>playerInfo.objective.gpsColor</Path>
+                     <PathType>PATH_ABSOLUTE</PathType>
+                    </BindingSetup>
+                   </Item>
+                  </MemberBindingLinks>
+                 </Item>
+                 <Item type="uiRawColorBehavior">
+                  <Name>colorBehavior</Name>
+                 </Item>
+                </Behaviors>
+               </BehaviorSet>
+              </Item>
+             </Children>
+            </Item>
+           </Children>
+          </Item>
+          <Item type="UIText">
+           <Name>GPS_DISTANCE_TEXT</Name>
+           <UseLayoutEngine value="True" />
+           <LayoutParams type="rage__LayoutParamInstanceAsset">
+            <params>
+             <horizontalAlignment>HALIGN_CENTER</horizontalAlignment>
+             <verticalAlignment>VALIGN_BOTTOM</verticalAlignment>
+             <widthContentMode>CONTENT_MODE_RAW</widthContentMode>
+             <heightContentMode>CONTENT_MODE_RAW</heightContentMode>
+             <width value="62" />
+             <height value="25" />
+            </params>
+           </LayoutParams>
+           <Style>GPS_DISTANCE</Style>
+           <FilterSet>
+            <Filters>
+             <Item type="uiFilterDropShadow">
+              <Properties>
+               <ShadowColor>COLOR_BLACK</ShadowColor>
+               <Alpha value="0.75" />
+               <HorizontalBlur value="0" />
+               <VerticalBlur value="0" />
+               <Distance value="3" />
+              </Properties>
+             </Item>
+            </Filters>
+           </FilterSet>
+          </Item>
+         </Children>
+        </Item>
+       </Children>
+      </Item>
+     </Children>
+    </Item>
+   </Children>
+  </Item>
+ </Children>
+</UIMovieView>
