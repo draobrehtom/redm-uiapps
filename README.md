@@ -97,6 +97,7 @@ Generated from the game's `data/ui` files ([how](docs/research.md)):
 | [templates.md](docs/templates.md) | 458 list aliases and the widget each builds |
 | [events.md](docs/events.md) | 35 event channels and 277 parameters |
 | [hud.md](docs/hud.md) | 96 HUD contexts and the slots they show / hide |
+| [radar.md](docs/radar.md) | the default radar's size and position, for drawing around it from NUI |
 
 Magic numbers from community scripts, named: `-702860656` = `catalog_item_inspection`, `-649639953` =
 `horse_stats_info_card` (both `shop_browsing`), `1670279562` = `HUD_CTX_TITHING`.

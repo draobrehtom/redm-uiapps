@@ -6,6 +6,7 @@ pages next to this one.
 - [Write values the UI reads](#write-values-the-ui-reads)
 - [Show a HUD widget](#show-a-hud-widget)
 - [Hide part of the game HUD](#hide-part-of-the-game-hud)
+- [Draw around the radar from NUI](radar.md)
 - [Launch an app, or one screen of it](#launch-an-app-or-one-screen-of-it)
 - [Show any flow block](#show-any-flow-block)
 - [Fill a list](#fill-a-list)
